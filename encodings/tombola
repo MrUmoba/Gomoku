@@ -1,0 +1,36 @@
+%fact
+row(0..2).
+column(0..8).
+value(1..90).
+
+cell(X, Y, Z) | nocell(X, Y, Z) :- row(X), column(Y), value(Z).
+
+
+
+%la stessa cella non può avere più valori.
+:-cell(X, Y, Z), cell(X, Y, Z1), Z<>Z1.
+%lo stesso valore non può essere in celle diverse
+:-cell(X, Y, Z), cell(X1, Y, Z), X<> X1. 
+:-cell(X, Y, Z), cell(X, Y1, Z), Y<> Y1.
+
+%deve contenere esattamente 15 numeri compresi tra 1 e 90.
+%:-#count{Z : cell(_,_, Z)} <> 15.
+%lo faccio automaticamente sotto, grazie Pucci.
+
+%ciascuna riga deve contenere esattamente 5 numeri.
+:- row(X), #count{V: cell(X, _, V)} <> 5.
+
+%ciascuna colonna deve contenere almeno 1 numero, e non più di 2;
+:-column(Y), #count{V : cell(X, Y, V), row(X)} > 2.
+:-column(Y), #count{V : cell(X, Y, V), row(X)} < 1.
+
+%la prima colonna puo' contenere solo numeri  tra 1 e 9; la seconda colonna numeri tra 10 e 19; la terza tra 20 e 29, e cosi' via fino all'ottava, che contiene i numeri tra 70 e 79; la nona colonna puo' contenere numeri tra 80 e 90.
+%orrendo come poche cose
+:- row(X), cell(X, Y, Z), Z < ((Y)*10), Y < 8.
+:- row(X), cell(X, Y, Z), Z > (((Y)*10)+9), Y < 8.
+:- row(X), cell(X, 8, Z), Z < 80.
+:- row(X), cell(X, 8, Z), Z > 90.
+
+%si desiderano evitare nella stessa colonna numeri consecutivi.
+:~ row(X), cell(X, Y, Z), cell(X, Y, Z1), Z != Z1 + 1.[1@2]
+
