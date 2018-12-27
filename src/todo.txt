@@ -1,0 +1,2 @@
+mettere matrice di fondo con 0 null, 1 giocatore bianco, 2 giocatore nero.
+mettere calcoli più semplici come in flowfree, con il cellSize.

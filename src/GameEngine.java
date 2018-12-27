@@ -11,10 +11,11 @@ public class GameEngine extends JPanel{
 	private Ball [][] matrix;
 	//PosXY mouse
 	private int posX, posY;
+	private JButton replay;
 	//Dimension
 	private int width,height,numCells;
 	private int player = 0;
-	
+	private int winner = -1;
 	public GameEngine(int WIDTH, int HEIGHT) {
 		super();
 		this.numCells = 15;
@@ -24,65 +25,93 @@ public class GameEngine extends JPanel{
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		this.setFocusable(true);
 		this.requestFocusInWindow();
+		this.setBackground(new Color(145, 189, 222));
+		
+		replay = new JButton("Replay");
+		replay.setEnabled(true);
+		this.setLayout(null);
+		replay.setBounds(10, width/2 + 20, 80, 20);
+		this.add(replay);
 		
 		initEH();
-		//stampaMatrix();
-			
+		
 	}
-	public void stampaMatrix() {
-		System.out.println("---------------------------------------------------------------------");
-		for(int i = 0; i < numCells; i++) {
-			for(int j = 0; j < numCells; j++ ) {
-				if(matrix[i][j] == null)
-					System.out.print(matrix[i][j] + " ");
-				else
-					System.out.print(matrix[i][j].getColor() + " ");
-			}
-			System.out.println();
-		}
-
-		System.out.println("---------------------------------------------------------------------");
-	}
-	
 	public void initEH() {
-
+			
+		replay.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				clearMatrix();
+			}
+		});
 		//Add balls to matrix & facts to ASP
 		this.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent me) { 
-				//calculate posx,posy in matrix mode.
-				posX = (me.getX()- width/4) / ((width-(width/4))/numCells);
-				posY = (me.getY()) / (height/numCells);
-				
-				//System.out.println("[" + posX + " " + posY + "]");
-				
-				//if matrice vuota nel punto inserisci e switcha giocatore
-				if(matrix[posY][posX] == null) {
-					matrix[posY][posX] = new Ball(player);
-					player++;
-					player %= 2;
-					repaint();//no timer
-					stampaMatrix();
+				if(winner == -1) {
+					//calculate posx,posy in matrix mode.
+					posX = (me.getX() - width/4); 
+					if( posX >= 0) 
+						posX /= ((width-(width/4))/numCells);
+					posY = (me.getY()) / (height/numCells);
+					
+					if(posX >=0 && posX < numCells && posY >= 0 && posY < numCells) {
+						if(matrix[posY][posX] == null) {
+							matrix[posY][posX] = new Ball(player);
+							if(hasWon(posY, posX, matrix[posY][posX].getColor())) {
+								winner = player+1;
+							}
+							player++;
+							player %= 2;
+							repaint();
+							
+						}
+					}
 				}
-				
-				/*if(hasWon()){
-					System.out.println("Ha vinto il giocatore: " + player);
-				}*/
 			}
 		});
 }
-
+	public void clearMatrix() {
+		matrix = new Ball[numCells][numCells];
+		player = 0;
+		repaint();
+	}
 	public void paintComponent(Graphics g) {
 		//entro tre volte a gioco partito, problema
 		super.paintComponent(g);
-		drawHUD(g);
+		drawHUD(g,winner);
+		drawMatrix(g);
 	}
 	
-	public void drawHUD(Graphics g) {
+	public void drawMatrix(Graphics g) {
+		for(int i = 0; i < numCells; i++) {
+			for(int j = 0; j < numCells; j++ ) {
+				if(matrix[i][j] != null) {
+					int x = (width/4) + ((width-(width/4))/numCells) * j;
+					int y = (height/numCells) * i;
+					
+					if(matrix[i][j].getColor().equals("nero")) {
+						g.setColor(new Color(0, 0, 0));
+						g.fillOval(x, y, 40, 40);
+					} else {
+						g.setColor(new Color(255,255,255));
+						g.fillOval(x, y, 40, 40);
+					}
+						
+				}
+					
+			}
+			
+		}
+	}
+	
+	
+	public void drawHUD(Graphics g, int winner) {
 		
 					//GAME INFO
 		g.setColor(new Color(255, 0, 0));
-		g.drawString("Player: " + (player+1) , 10, height/2);
-		
+		g.drawString("Current player: " + (player+1) , 10, height/2);
+		if(winner != -1) {
+			g.drawString("The winner is: " + winner, 10, height/2 + 20);
+		}
 					//GAME GRID
 		g.setColor(new Color(0, 0, 0));
 		//HORIZONTAL
@@ -95,11 +124,75 @@ public class GameEngine extends JPanel{
 		}
 
 	}
-	public boolean hasWon() {
+	public boolean hasWon(int i, int j, String colore) {
+		
 		//5 on the same row
+		int cont = 0;
+		for(int col = 0; col < 15; col++)
+			if(matrix[i][col] != null)
+				if(matrix[i][col].getColor().equals(colore)) {
+					cont++;
+					if(cont == 5) return true;
+				}
+				else
+					cont = 0;
+			else
+				cont = 0;
+		
 		//5 on the same column
+		for(int rig = 0; rig < numCells; rig++)
+			if(matrix[rig][j] != null)
+				if(matrix[rig][j].getColor().equals(colore)) {
+					cont++;
+					if(cont == 5) return true;
+				}
+				else
+					cont = 0;
+			else
+				cont = 0;
+		
 		//5 on first 
+		int min = j > i ? i:j;
+		int k = i - min;
+		int l = j - min;
+		while(k < numCells && l < numCells) {
+			
+			if(matrix[k][l] != null)
+				if(matrix[k][l].getColor().equals(colore)) {
+					cont++;
+					if(cont == 5) return true;
+				}
+				else
+					cont = 0;
+			else
+				cont = 0;
+			k++;
+			l++;
+		}
+		
 		//5 on second
+		k = i;
+		l = j;
+		//starter point
+		while(k > 0 && l < numCells-1) {
+			k--;
+			l++;
+		}
+		
+		while(k < numCells && l >= 0) {
+			
+			if(matrix[k][l] != null)
+				if(matrix[k][l].getColor().equals(colore)) {
+					cont++;
+					if(cont == 5) return true;
+				}
+				else
+					cont = 0;
+			else
+				cont = 0;
+			k++;
+			l--;
+		}
 		return false;
 	}
 }
