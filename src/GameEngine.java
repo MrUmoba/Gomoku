@@ -41,6 +41,7 @@ public class GameEngine extends JPanel{
 		replay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				clearMatrix();
+				winner = -1;
 			}
 		});
 		//Add balls to matrix & facts to ASP
