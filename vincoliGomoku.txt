@@ -1,0 +1,37 @@
+row(0..9).
+column(0..9).
+
+enemy(0,1).
+enemy(1,1).
+enemy(2,1).
+enemy(3,1).
+enemy(1,1).
+enemy(2,2).
+enemy(3,3).
+enemy(4,4).
+ally(0,0).
+
+ally(1,4).
+ally(1,5).
+ally(1,6).
+ally(1,7).
+
+empty(X,Y):- not enemy(X,Y),not ally(X,Y), row(X), column(Y) .
+place(X,Y) | nonPlace(X,Y):- empty(X,Y), row(X), column(Y).
+
+:-#count{X,Y:place(X,Y)}!=1.
+
+rowFour:- enemy(X,Y), enemy(X+1,Y), enemy(X+2,Y), enemy(X+3,Y), empty(X+4,Y), nonPlace(X+4,Y).
+colfour:- enemy(X,Y), enemy(X,Y+1), enemy(X,Y+2), enemy(X,Y+3), empty(X,Y+4), nonPlace(X,Y+4), not rowFour.
+diagFour:- enemy(X,Y), enemy(X+1,Y+1), enemy(X+2,Y+2), enemy(X+3,Y+3), empty(X+4,Y+4), nonPlace(X+4,Y+4), not colFour.
+invDiagFour:- enemy(X,Y), enemy(X+1,Y-1), enemy(X+2,Y-2), enemy(X+3,Y-3), empty(X+4,Y-4), nonPlace(X+4,Y-4), not diagFour.
+
+rowFourBack:- empty(X,Y), enemy(X+1,Y), enemy(X+2,Y), enemy(X+3,Y), enemy(X+4,Y), nonPlace(X,Y), not invDiagFour.
+colFourBack:- empty(X,Y), enemy(X,Y+1), enemy(X,Y+2), enemy(X,Y+3), enemy(X,Y+4), nonPlace(X,Y), not rowFourBack.
+diagFourBack:- empty(X,Y), enemy(X+1,Y+1), enemy(X+2,Y+2), enemy(X+3,Y+3), enemy(X+4,Y+4), nonPlace(X,Y), not colFourBack.
+invDiagFourBack:- empty(X,Y), enemy(X+1,Y-1), enemy(X+2,Y-2), enemy(X+3,Y-3), enemy(X+4,Y-4), nonPlace(X,Y), not diagFourBack.
+
+:-invDiagFourBack.
+
+
+
