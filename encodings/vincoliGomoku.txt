@@ -1,9 +1,11 @@
+row(0..14).
+column(0..14).
 
 %cell(X,Y,Valore).
 % 0 = Vuoto, 1 = Giocatore, 2 = AI.
 
-cell(X,Y,0):- not cell(X,Y,1),not cell(X,Y,2).
-place(X,Y) | nonPlace(X,Y):- cell(X,Y,0).
+cell(X,Y,0):- not cell(X,Y,1),not cell(X,Y,2), row(X), column(Y).
+place(X,Y) | nonPlace(X,Y):- cell(X,Y,0), row(X), column(Y).
 
 :-#count{X,Y:place(X,Y)}!=1.
 

@@ -5,7 +5,23 @@
 
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;  
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+
+import javax.swing.*;
+
+import it.unical.mat.embasp.base.Handler;
+import it.unical.mat.embasp.base.InputProgram;
+import it.unical.mat.embasp.base.OptionDescriptor;
+import it.unical.mat.embasp.base.Output;
+import it.unical.mat.embasp.languages.asp.ASPFilterOption;
+import it.unical.mat.embasp.languages.asp.ASPInputProgram;
+import it.unical.mat.embasp.languages.asp.AnswerSet;
+import it.unical.mat.embasp.languages.asp.AnswerSets;
+import it.unical.mat.embasp.platforms.desktop.DesktopHandler;
+import it.unical.mat.embasp.specializations.dlv.desktop.DLVDesktopService;
+import it.unical.mat.embasp.specializations.dlv2.desktop.DLV2DesktopService;
+
 public class GameEngine extends JPanel{
 	//Gomoku Matrix of matrix
 	private Ball [][] matrix;
@@ -16,6 +32,13 @@ public class GameEngine extends JPanel{
 	private int width,height,numCells;
 	private int player = 0;
 	private int winner = -1;
+	
+	//EmbASP
+	private InputProgram facts = null;
+	private Handler handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2"));
+	private String encodingResource="encodings/vincoliGomoku.txt";
+	
+	
 	public GameEngine(int WIDTH, int HEIGHT) {
 		super();
 		this.numCells = 15;
@@ -33,6 +56,8 @@ public class GameEngine extends JPanel{
 		replay.setBounds(10, width/2 + 20, 80, 20);
 		this.add(replay);
 		
+		
+		
 		initEH();
 		
 	}
@@ -46,6 +71,7 @@ public class GameEngine extends JPanel{
 		});
 		//Add balls to matrix & facts to ASP
 		this.addMouseListener(new MouseAdapter() {
+			
 			public void mousePressed(MouseEvent me) { 
 				if(winner == -1) {
 					//calculate posx,posy in matrix mode.
@@ -54,25 +80,89 @@ public class GameEngine extends JPanel{
 						posX /= ((width-(width/4))/numCells);
 					posY = (me.getY()) / (height/numCells);
 					
-					if(posX >=0 && posX < numCells && posY >= 0 && posY < numCells) {
-						if(matrix[posY][posX] == null) {
-							matrix[posY][posX] = new Ball(player);
-							if(hasWon(posY, posX, matrix[posY][posX].getColor())) {
+					//player 1
+					if(player == 0)
+						if(posX >=0 && posX < numCells && posY >= 0 && posY < numCells) {
+							if(matrix[posY][posX] == null) {
+								matrix[posY][posX] = new Ball(player);
+								if(hasWon(posY, posX, matrix[posY][posX].getColor())) {
+									winner = player+1;
+								}
+								player++;
+								player %= 2;
+								repaint();
+								
+							}
+						}
+					
+					//player 2
+					if(player == 1) {
+						Place tmp = java_To_ASP();
+						if(tmp != null) {
+							matrix[tmp.getRow()][tmp.getColumn()] = new Ball(player);
+							if(hasWon(tmp.getRow(), tmp.getColumn(), matrix[posY][posX].getColor())) {
 								winner = player+1;
 							}
-							player++;
-							player %= 2;
-							repaint();
-							
-						}
+						}	else 
+							System.out.println("pareggio, place null");
+						
+						player++;
+						player %= 2;
+//						repaint();
 					}
+					
 				}
 			}
 		});
 }
+	public Place java_To_ASP() {
+		
+		facts = new ASPInputProgram();
+	//	handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2"));
+		//Add facts to ASP
+		
+		for(int i = 0; i < numCells; i++) {
+			for(int j = 0; j < numCells; j++) {
+				if(matrix[i][j] != null) {
+					try {
+						facts.addObjectInput(new Cell(i, j, matrix[i][j].getPlayer()+1));
+						
+					}catch(Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		handler.addProgram(facts);
+				
+		InputProgram encoding= new ASPInputProgram();
+		encoding.addFilesPath(encodingResource);
+		handler.addProgram(encoding);
+		OptionDescriptor oddio = new OptionDescriptor(new String("--filter=place/2 "));
+		handler.addOption(oddio);
+		
+		//Get AS from ASP
+		Output o =  handler.startSync();
+		//SCRIVITILI BONI STI CAZZI I DOCUMENTAZIONI
+		AnswerSets answers = (AnswerSets) o;
+		List<AnswerSet> a = answers.getAnswersets();
+		if(a.size() >= 0) {
+			for(int i = 0; i < a.size();i++) {
+				String tmp = a.get(i).toString();
+				int x = Integer.parseInt(tmp.substring(tmp.indexOf('(')+1, tmp.indexOf(',')));
+				int y = Integer.parseInt(tmp.substring(tmp.indexOf(',')+1, tmp.indexOf(')')));
+				
+				return new Place(x,y);
+				
+			}
+		}
+		return null;
+	}
+	
 	public void clearMatrix() {
 		matrix = new Ball[numCells][numCells];
 		player = 0;
+		handler.removeAll();
 		repaint();
 	}
 	public void paintComponent(Graphics g) {
