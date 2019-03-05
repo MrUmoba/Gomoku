@@ -42,8 +42,8 @@ cellColThreeBack:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,1), c
 cellDiagThreeBack:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,1), cell(X+3,Y+3,0), nonPlace(X,Y).
 cellInvDiagThreeBack:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,1), cell(X+3,Y-3,0), nonPlace(X,Y).
 
+%attacco
 :-rowFour.
-
 :~colFour. [1@10]
 :~diagFour. [2@10]
 :~invDiagFour. [3@10]
@@ -52,6 +52,7 @@ cellInvDiagThreeBack:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y
 :~diagFourBack. [6@10]
 :~invDiagFourBack. [7@10]
 
+%difesa
 :~cellRowFour. [1@9]
 :~cellColFour. [2@9]
 :~cellDiagFour. [3@9]
