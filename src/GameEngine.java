@@ -23,8 +23,10 @@ import it.unical.mat.embasp.specializations.dlv.desktop.DLVDesktopService;
 import it.unical.mat.embasp.specializations.dlv2.desktop.DLV2DesktopService;
 
 public class GameEngine extends JPanel{
+	
 	//Gomoku Matrix of matrix
 	private Ball [][] matrix;
+	
 	//PosXY mouse
 	private int posX, posY;
 	private JButton replay;
@@ -35,7 +37,9 @@ public class GameEngine extends JPanel{
 	
 	//EmbASP
 	private InputProgram facts = null;
-	private Handler handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2"));
+	private InputProgram encoding = null;
+	private OptionDescriptor filter = null;
+	private Handler handler = null;
 	private String encodingResource="encodings/vincoliGomoku.txt";
 	
 	
@@ -57,10 +61,21 @@ public class GameEngine extends JPanel{
 		this.add(replay);
 		
 		
-		
+		initASP();
 		initEH();
 		
 	}
+	public void initASP() {
+		handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2"));
+		encoding= new ASPInputProgram();
+		encoding.addFilesPath(encodingResource);
+		filter = new OptionDescriptor(new String("--filter=place/2 "));
+		
+		handler.addProgram(encoding);
+		handler.addOption(filter);
+	}
+	
+	
 	public void initEH() {
 			
 		replay.addActionListener(new ActionListener() {
@@ -100,7 +115,7 @@ public class GameEngine extends JPanel{
 						Place tmp = java_To_ASP();
 						if(tmp != null) {
 							matrix[tmp.getRow()][tmp.getColumn()] = new Ball(player);
-							if(hasWon(tmp.getRow(), tmp.getColumn(), matrix[posY][posX].getColor())) {
+							if(hasWon(tmp.getRow(), tmp.getColumn(), matrix[tmp.getRow()][tmp.getColumn()].getColor())) {
 								winner = player+1;
 							}
 						}	else 
@@ -108,7 +123,7 @@ public class GameEngine extends JPanel{
 						
 						player++;
 						player %= 2;
-//						repaint();
+						repaint();
 					}
 					
 				}
@@ -118,7 +133,6 @@ public class GameEngine extends JPanel{
 	public Place java_To_ASP() {
 		
 		facts = new ASPInputProgram();
-	//	handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2"));
 		//Add facts to ASP
 		
 		for(int i = 0; i < numCells; i++) {
@@ -134,16 +148,10 @@ public class GameEngine extends JPanel{
 			}
 		}
 		handler.addProgram(facts);
-				
-		InputProgram encoding= new ASPInputProgram();
-		encoding.addFilesPath(encodingResource);
-		handler.addProgram(encoding);
-		OptionDescriptor oddio = new OptionDescriptor(new String("--filter=place/2 "));
-		handler.addOption(oddio);
 		
 		//Get AS from ASP
 		Output o =  handler.startSync();
-		//SCRIVITILI BONI STI CAZZI I DOCUMENTAZIONI
+		
 		AnswerSets answers = (AnswerSets) o;
 		List<AnswerSet> a = answers.getAnswersets();
 		if(a.size() >= 0) {
@@ -151,9 +159,8 @@ public class GameEngine extends JPanel{
 				String tmp = a.get(i).toString();
 				int x = Integer.parseInt(tmp.substring(tmp.indexOf('(')+1, tmp.indexOf(',')));
 				int y = Integer.parseInt(tmp.substring(tmp.indexOf(',')+1, tmp.indexOf(')')));
-				
+				handler.removeProgram(facts);
 				return new Place(x,y);
-				
 			}
 		}
 		return null;
@@ -162,7 +169,6 @@ public class GameEngine extends JPanel{
 	public void clearMatrix() {
 		matrix = new Ball[numCells][numCells];
 		player = 0;
-		handler.removeAll();
 		repaint();
 	}
 	public void paintComponent(Graphics g) {

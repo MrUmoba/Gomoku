@@ -9,6 +9,7 @@ place(X,Y) | nonPlace(X,Y):- cell(X,Y,0), row(X), column(Y).
 
 :-#count{X,Y:place(X,Y)}!=1.
 
+%attacco(per il momento solo su riga con già 4 elementi)
 rowFour:- cell(X,Y,2), cell(X+1,Y,2), cell(X+2,Y,2), cell(X+3,Y,2), cell(X+4,Y,0), nonPlace(X+4,Y).
 colFour:- cell(X,Y,2), cell(X,Y+1,2), cell(X,Y+2,2), cell(X,Y+3,2), cell(X,Y+4,0), nonPlace(X,Y+4).
 diagFour:- cell(X,Y,2), cell(X+1,Y+1,2), cell(X+2,Y+2,2), cell(X+3,Y+3,2), cell(X+4,Y+4,0), nonPlace(X+4,Y+4).
@@ -19,7 +20,7 @@ colFourBack:- cell(X,Y,0), cell(X,Y+1,2), cell(X,Y+2,2), cell(X,Y+3,2), cell(X,Y
 diagFourBack:- cell(X,Y,0), cell(X+1,Y+1,2), cell(X+2,Y+2,2), cell(X+3,Y+3,2), cell(X+4,Y+4,2), nonPlace(X,Y).
 invDiagFourBack:- cell(X,Y,0), cell(X+1,Y-1,2), cell(X+2,Y-2,2), cell(X+3,Y-3,2), cell(X+4,Y-4,2), nonPlace(X,Y).
 
-
+%difesa(funziona sempre, 3 e 4 già piazzati)
 cellRowFour:- cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,1), cell(X+3,Y,1), cell(X+4,Y,0), nonPlace(X+4,Y).
 cellColFour:- cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,1), cell(X,Y+3,1), cell(X,Y+4,0), nonPlace(X,Y+4).
 cellDiagFour:- cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,1), cell(X+3,Y+3,1), cell(X+4,Y+4,0), nonPlace(X+4,Y+4).
@@ -42,6 +43,7 @@ cellDiagThreeBack:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,
 cellInvDiagThreeBack:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,1), cell(X+3,Y-3,0), nonPlace(X,Y).
 
 :-rowFour.
+
 :~colFour. [1@10]
 :~diagFour. [2@10]
 :~invDiagFour. [3@10]
