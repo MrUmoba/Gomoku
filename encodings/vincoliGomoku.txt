@@ -20,7 +20,7 @@ colFourBack:- cell(X,Y,0), cell(X,Y+1,2), cell(X,Y+2,2), cell(X,Y+3,2), cell(X,Y
 diagFourBack:- cell(X,Y,0), cell(X+1,Y+1,2), cell(X+2,Y+2,2), cell(X+3,Y+3,2), cell(X+4,Y+4,2), nonPlace(X,Y).
 invDiagFourBack:- cell(X,Y,0), cell(X+1,Y-1,2), cell(X+2,Y-2,2), cell(X+3,Y-3,2), cell(X+4,Y-4,2), nonPlace(X,Y).
 
-%difesa(funziona sempre, 3 e 4 già piazzati)
+%difesa(funziona sempre, 4 già piazzati)
 cellRowFour:- cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,1), cell(X+3,Y,1), cell(X+4,Y,0), nonPlace(X+4,Y).
 cellColFour:- cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,1), cell(X,Y+3,1), cell(X,Y+4,0), nonPlace(X,Y+4).
 cellDiagFour:- cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,1), cell(X+3,Y+3,1), cell(X+4,Y+4,0), nonPlace(X+4,Y+4).
@@ -31,18 +31,29 @@ cellColFourBack:- cell(X,Y,0), cell(X,Y+1,1), cell(X,Y+2,1), cell(X,Y+3,1), cell
 cellDiagFourBack:- cell(X,Y,0), cell(X+1,Y+1,1), cell(X+2,Y+2,1), cell(X+3,Y+3,1), cell(X+4,Y+4,1), nonPlace(X,Y).
 cellInvDiagFourBack:- cell(X,Y,0), cell(X+1,Y-1,1), cell(X+2,Y-2,1), cell(X+3,Y-3,1), cell(X+4,Y-4,1), nonPlace(X,Y).
 
-
-cellRowThree:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,1), cell(X+3,Y,0), nonPlace(X+3,Y).
-cellColThree:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,1), cell(X,Y+3,0), nonPlace(X,Y+3).
+%difesa (il nemico ne ha 3 liberi piazzati)
+cellRowThree:- cell(X-1,Y,0), cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,1), cell(X+3,Y,0), nonPlace(X+3,Y).
+cellColThree:- cell(X,Y-1,0), cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,1), cell(X,Y+3,0), nonPlace(X,Y+3).
 cellDiagThree:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,1), cell(X+3,Y+3,0), nonPlace(X+3,Y+3).
-cellInvDiagThree:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,1), cell(X+3,Y-3,0), nonPlace(X+3,Y-3).
+cellInvDiagThree:- cell(X-1,Y+1,0), cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,1), cell(X+3,Y-3,0), nonPlace(X+3,Y-3).
 
-cellRowThreeBack:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,1), cell(X+3,Y,0), nonPlace(X,Y).
-cellColThreeBack:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,1), cell(X,Y+3,0), nonPlace(X,Y).
-cellDiagThreeBack:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,1), cell(X+3,Y+3,0), nonPlace(X,Y).
-cellInvDiagThreeBack:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,1), cell(X+3,Y-3,0), nonPlace(X,Y).
+cellRowThreeBack:- cell(X-1,Y,0), cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,1), cell(X+3,Y,0), nonPlace(X-1,Y).
+cellColThreeBack:- cell(X,Y-1,0), cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,1), cell(X,Y+3,0), nonPlace(X,Y-1).
+cellDiagThreeBack:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,1), cell(X+3,Y+3,0), nonPlace(X-1,Y-1).
+cellInvDiagThreeBack:- cell(X-1,Y+1,0), cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,1), cell(X+3,Y-3,0), nonPlace(X-1,Y+1).
 
-%attacco
+%difesa (il nemico ne ha 2 liberi piazzati)
+cellRowTwo:- cell(X-1,Y,0), cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,0), nonPlace(X+2,Y).
+cellColTwo:- cell(X,Y-1,0), cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,0), nonPlace(X,Y+2).
+cellDiagTwo:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,0), nonPlace(X+2,Y+2).
+cellInvDiagTwo:- cell(X-1,Y+1,0), cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,0), nonPlace(X+2,Y-2).
+
+cellRowTwoBack:- cell(X-1,Y,0), cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,1),  nonPlace(X-1,Y).
+cellColTwoBack:- cell(X,Y-1,0), cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,1),  nonPlace(X,Y-1).
+cellDiagTwoBack:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,1),  nonPlace(X-1,Y-1).
+cellInvDiagTwoBack:- cell(X-1,Y+1,0), cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,1),  nonPlace(X-1,Y+1).
+
+%attacco (in caso di vincita)
 :-rowFour.
 :~colFour. [1@10]
 :~diagFour. [2@10]
@@ -52,7 +63,7 @@ cellInvDiagThreeBack:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y
 :~diagFourBack. [6@10]
 :~invDiagFourBack. [7@10]
 
-%difesa
+%difesa (4)
 :~cellRowFour. [1@9]
 :~cellColFour. [2@9]
 :~cellDiagFour. [3@9]
@@ -62,6 +73,7 @@ cellInvDiagThreeBack:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y
 :~cellDiagFourBack. [7@9]
 :~cellInvDiagFourBack. [8@9]
 
+%difesa (3)
 :~cellRowThree. [1@8]
 :~cellColThree. [2@8]
 :~cellDiagThree. [3@8]
@@ -71,3 +83,12 @@ cellInvDiagThreeBack:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y
 :~cellDiagThreeBack. [7@8]
 :~cellInvDiagThreeBack. [8@8]
 
+%difesa (2)
+:~cellRowTwo. [1@4]
+:~cellColTwo. [2@4]
+:~cellDiagTwo. [3@4]
+:~cellInvDiagTwo. [4@4]
+:~cellRowTwoBack. [5@4]
+:~cellColTwoBack. [6@4]
+:~cellDiagTwoBack. [7@4]
+:~cellInvDiagTwoBack.  [8@4]
