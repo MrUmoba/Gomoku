@@ -102,6 +102,9 @@ public class GameEngine extends JPanel{
 								matrix[posY][posX] = new Ball(player);
 								if(hasWon(posY, posX, matrix[posY][posX].getColor())) {
 									winner = player+1;
+									repaint();
+									return;
+									//pls refactor this
 								}
 								player++;
 								player %= 2;
@@ -109,6 +112,24 @@ public class GameEngine extends JPanel{
 								
 							}
 						}
+					
+					/*
+					//player 1
+					if(player == 0) {
+						Place tmp = java_To_ASP();
+						if(tmp != null) {
+							matrix[tmp.getRow()][tmp.getColumn()] = new Ball(player);
+							if(hasWon(tmp.getRow(), tmp.getColumn(), matrix[tmp.getRow()][tmp.getColumn()].getColor())) {
+								winner = player+1;
+							}
+						} else 
+							System.out.println("pareggio, place null");
+						
+						player++;
+						player %= 2;
+						repaint();
+					}*/
+					
 					
 					//player 2
 					if(player == 1) {
@@ -118,7 +139,7 @@ public class GameEngine extends JPanel{
 							if(hasWon(tmp.getRow(), tmp.getColumn(), matrix[tmp.getRow()][tmp.getColumn()].getColor())) {
 								winner = player+1;
 							}
-						}	else 
+						} else 
 							System.out.println("pareggio, place null");
 						
 						player++;
@@ -154,6 +175,7 @@ public class GameEngine extends JPanel{
 		
 		AnswerSets answers = (AnswerSets) o;
 		List<AnswerSet> a = answers.getAnswersets();
+		System.out.println(a);
 		if(a.size() >= 0) {
 			for(int i = 0; i < a.size();i++) {
 				String tmp = a.get(i).toString();
@@ -163,12 +185,14 @@ public class GameEngine extends JPanel{
 				return new Place(x,y);
 			}
 		}
+		handler.removeProgram(facts);
 		return null;
 	}
 	
 	public void clearMatrix() {
 		matrix = new Ball[numCells][numCells];
 		player = 0;
+		initASP();
 		repaint();
 	}
 	public void paintComponent(Graphics g) {
