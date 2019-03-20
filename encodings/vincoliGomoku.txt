@@ -55,16 +55,16 @@ cellDiagThreeBackOpen:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,
 cellInvDiagThreeBackOpen:- cell(X-1,Y+1,0), cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,1),cell(X+3,Y-3,0), nonPlace(X-1,Y+1).
 
 
-%difesa (il nemico ne ha 2 liberi piazzati)
-cellRowTwo:-  cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,0), nonPlace(X+2,Y).
-cellColTwo:-  cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,0), nonPlace(X,Y+2).
-cellDiagTwo:-  cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,0), nonPlace(X+2,Y+2).
-cellInvDiagTwo:-  cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,0), nonPlace(X+2,Y-2).
+%difesa (il nemico ne ha 2 piazzati)
+cellRowTwoOpen:- cell(X-1,Y,0),cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,0), nonPlace(X+2,Y).
+cellColTwoOpen:- cell(X,Y-1,0),cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,0),  nonPlace(X,Y+2).
+cellDiagTwoOpen:-  cell(X-1,Y-1,0),cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,0),  nonPlace(X+2,Y+2).
+cellInvDiagTwoOpen:-  cell(X-1,Y+1,0), cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,0),  nonPlace(X+2,Y-2).
 
-cellRowTwoBack:- cell(X-1,Y,0), cell(X,Y,1), cell(X+1,Y,1), nonPlace(X-1,Y).
-cellColTwoBack:- cell(X,Y-1,0), cell(X,Y,1), cell(X,Y+1,1), nonPlace(X,Y-1).
-cellDiagTwoBack:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y+1,1), nonPlace(X-1,Y-1).
-cellInvDiagTwoBack:- cell(X-1,Y+1,0), cell(X,Y,1), cell(X+1,Y-1,1), nonPlace(X-1,Y+1).
+cellRowTwoBackOpen:- cell(X-1,Y,0), cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,0), nonPlace(X-1,Y).
+cellColTwoBackOpen:- cell(X,Y-1,0), cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,0),  nonPlace(X,Y-1).
+cellDiagTwoBackOpen:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,0), nonPlace(X-1,Y-1).
+cellInvDiagTwoBackOpen:- cell(X-1,Y+1,0), cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,0), nonPlace(X-1,Y+1).
 
 
 %riga palla-vuoto-palla
@@ -72,6 +72,17 @@ cellRowAlt :- cell(X,Y,1), cell(X+1,Y,0), cell(X+2,Y,1), nonPlace(X+1,Y).
 cellColAlt:- cell(X,Y,1), cell(X,Y+1,0), cell(X,Y+2,1), nonPlace(X,Y+1).
 cellDiagAlt:- cell(X,Y,1), cell(X+1,Y+1,0), cell(X+2,Y+2,1), nonPlace(X+1,Y+1).
 cellInvDiagAlt:- cell(X,Y,1), cell(X+1,Y-1,0), cell(X+2,Y-2,1), nonPlace(X+1,Y-1).
+
+%attacco (1)
+cellRowOne:-  cell(X,Y,1), cell(X+1,Y,0), nonPlace(X+1,Y).
+cellColOne:-  cell(X,Y,1), cell(X,Y+1,0),  nonPlace(X,Y+1).
+cellDiagOne:-  cell(X,Y,1), cell(X+1,Y+1,0),  nonPlace(X+1,Y+1).
+cellInvDiagOne:-  cell(X,Y,1), cell(X+1,Y-1,0), nonPlace(X+1,Y-1).
+
+cellRowOneBack:- cell(X-1,Y,0), cell(X,Y,1), nonPlace(X-1,Y).
+cellColOneBack:- cell(X,Y-1,0), cell(X,Y,1), nonPlace(X,Y-1).
+cellDiagOneBack:- cell(X-1,Y-1,0), cell(X,Y,1), nonPlace(X-1,Y-1).
+cellInvDiagOneBack:- cell(X-1,Y+1,0), cell(X,Y,1), nonPlace(X-1,Y+1).
 
 							%PRIORITA' DIFESA
 %difesa (4 alternate)
@@ -106,32 +117,40 @@ cellInvDiagAlt:- cell(X,Y,1), cell(X+1,Y-1,0), cell(X+2,Y-2,1), nonPlace(X+1,Y-1
 
 
 %difesa palla-vuoto-palla(new strategy ;) )
-:~cellRowAlt. [1@6]
-:~cellColAlt. [1@6]
-:~cellDiagAlt. [1@6]
-:~cellInvDiagAlt. [1@6]
+:~cellRowAlt. [1@1]
+:~cellColAlt. [1@1]
+:~cellDiagAlt. [1@1]
+:~cellInvDiagAlt. [1@1]
 
 %difesa (3)
-:~cellRowThree. [1@3]
-:~cellColThree. [1@3]
-:~cellDiagThree. [1@3]
-:~cellInvDiagThree. [1@3]
-:~cellRowThreeBack. [2@3]
-:~cellColThreeBack. [2@3]
-:~cellDiagThreeBack. [2@3]
-:~cellInvDiagThreeBack. [2@3]
+:~cellRowThree. [1@2]
+:~cellColThree. [1@2]
+:~cellDiagThree. [1@2]
+:~cellInvDiagThree. [1@2]
+:~cellRowThreeBack. [2@2]
+:~cellColThreeBack. [2@2]
+:~cellDiagThreeBack. [2@2]
+:~cellInvDiagThreeBack. [2@2]
 
-%difesa (2)
-:~cellRowTwo. [1@2]
-:~cellColTwo. [1@2]
-:~cellDiagTwo. [1@2]
-:~cellInvDiagTwo. [1@2]
-:~cellRowTwoBack. [2@2]
-:~cellColTwoBack. [2@2]
-:~cellDiagTwoBack. [2@2]
-:~cellInvDiagTwoBack.  [2@2]
+%difesa (2 aperti)
+:~cellRowTwoOpen. [1@5]
+:~cellColTwoOpen. [1@5]
+:~cellDiagTwoOpen. [1@5]
+:~cellInvDiagTwoOpen. [1@5]
+:~cellRowTwoBackOpen. [2@5]
+:~cellColTwoBackOpen. [2@5]
+:~cellDiagTwoBackOpen. [2@5]
+:~cellInvDiagTwoBackOpen. [2@5]
 
-
+%difesa (1)
+:~cellRowOne. [1@1]
+:~cellColOne. [1@1]
+:~cellDiagOne. [1@1]
+:~cellInvDiagOne. [1@1]
+:~cellRowOneBack. [2@1]
+:~cellColOneBack. [2@1]
+:~cellDiagOneBack. [2@1]
+:~cellInvDiagOneBack.  [2@1]
 
 										%ATTACCO
 %attacco(4 alternate)
@@ -190,6 +209,17 @@ cellAttRowTwoBack:- cell(X-1,Y,0), cell(X,Y,2), cell(X+1,Y,2), nonPlace(X-1,Y).
 cellAttColTwoBack:- cell(X,Y-1,0), cell(X,Y,2), cell(X,Y+1,2), nonPlace(X,Y-1).
 cellAttDiagTwoBack:- cell(X-1,Y-1,0), cell(X,Y,2), cell(X+1,Y+1,2), nonPlace(X-1,Y-1).
 cellAttInvDiagTwoBack:- cell(X-1,Y+1,0), cell(X,Y,2), cell(X+1,Y-1,2), nonPlace(X-1,Y+1).
+
+%attacco (1)
+cellAttRowOne:-  cell(X,Y,2), cell(X+1,Y,0), nonPlace(X+1,Y).
+cellAttColOne:-  cell(X,Y,2), cell(X,Y+1,0),  nonPlace(X,Y+1).
+cellAttDiagOne:-  cell(X,Y,2), cell(X+1,Y+1,0),  nonPlace(X+1,Y+1).
+cellAttInvDiagOne:-  cell(X,Y,2), cell(X+1,Y-1,0), nonPlace(X+1,Y-1).
+
+cellAttRowOneBack:- cell(X-1,Y,0), cell(X,Y,2), nonPlace(X-1,Y).
+cellAttColOneBack:- cell(X,Y-1,0), cell(X,Y,2), nonPlace(X,Y-1).
+cellAttDiagOneBack:- cell(X-1,Y-1,0), cell(X,Y,2), nonPlace(X-1,Y-1).
+cellAttInvDiagOneBack:- cell(X-1,Y+1,0), cell(X,Y,2), nonPlace(X-1,Y+1).
 								
 								%PRIORITA' ATTACCO
 %attacco (4 alternate)
@@ -224,14 +254,14 @@ cellAttInvDiagTwoBack:- cell(X-1,Y+1,0), cell(X,Y,2), cell(X+1,Y-1,2), nonPlace(
 :~cellAttInvDiagThreeBackOpen. [2@8]
 
 %attacco (3)
-:~cellAttRowThree. [1@5]
-:~cellAttColThree. [1@5]
-:~cellAttDiagThree. [1@5]
-:~cellAttInvDiagThree. [1@5]
-:~cellAttRowThreeBack. [2@5]
-:~cellAttColThreeBack. [2@5]
-:~cellAttDiagThreeBack. [2@5]
-:~cellAttInvDiagThreeBack. [2@5]
+:~cellAttRowThree. [1@6]
+:~cellAttColThree. [1@6]
+:~cellAttDiagThree. [1@6]
+:~cellAttInvDiagThree. [1@6]
+:~cellAttRowThreeBack. [2@6]
+:~cellAttColThreeBack. [2@6]
+:~cellAttDiagThreeBack. [2@6]
+:~cellAttInvDiagThreeBack. [2@6]
 
 %attacco (2)
 :~cellAttRowTwo. [1@4]
@@ -242,3 +272,13 @@ cellAttInvDiagTwoBack:- cell(X-1,Y+1,0), cell(X,Y,2), cell(X+1,Y-1,2), nonPlace(
 :~cellAttColTwoBack. [2@4]
 :~cellAttDiagTwoBack. [2@4]
 :~cellAttInvDiagTwoBack.  [2@4]
+
+%attacco (1)
+:~cellAttRowOne. [1@3]
+:~cellAttColOne. [1@3]
+:~cellAttDiagOne. [1@3]
+:~cellAttInvDiagOne. [1@3]
+:~cellAttRowOneBack. [2@3]
+:~cellAttColOneBack. [2@3]
+:~cellAttDiagOneBack. [2@3]
+:~cellAttInvDiagOneBack.  [2@3]
