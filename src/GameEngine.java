@@ -66,6 +66,7 @@ public class GameEngine extends JPanel{
 		
 	}
 	public void initASP() {
+		if(handler != null) handler.removeAll();
 		handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2"));
 		encoding= new ASPInputProgram();
 		encoding.addFilesPath(encodingResource);
