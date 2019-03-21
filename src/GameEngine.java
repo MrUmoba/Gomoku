@@ -54,10 +54,10 @@ public class GameEngine extends JPanel{
 		this.requestFocusInWindow();
 		this.setBackground(new Color(145, 189, 222));
 		
-		replay = new JButton("Replay");
+		replay = new JButton("Rigioca");
 		replay.setEnabled(true);
 		this.setLayout(null);
-		replay.setBounds(10, width/2 + 20, 80, 20);
+		replay.setBounds(10, width/2 + 20, 100, 20);
 		this.add(replay);
 		
 		
@@ -97,6 +97,7 @@ public class GameEngine extends JPanel{
 					posY = (me.getY()) / (height/numCells);
 					
 					//player 1
+					
 					if(player == 0)
 						if(posX >=0 && posX < numCells && posY >= 0 && posY < numCells) {
 							if(matrix[posY][posX] == null) {
@@ -129,9 +130,9 @@ public class GameEngine extends JPanel{
 						player++;
 						player %= 2;
 						repaint();
-					}*/
+					}
 					
-					
+					*/
 					//player 2
 					if(player == 1) {
 						Place tmp = java_To_ASP();
@@ -176,7 +177,6 @@ public class GameEngine extends JPanel{
 		
 		AnswerSets answers = (AnswerSets) o;
 		List<AnswerSet> a = answers.getAnswersets();
-		System.out.println(a);
 		if(a.size() >= 0) {
 			for(int i = 0; i < a.size();i++) {
 				String tmp = a.get(i).toString();
@@ -250,7 +250,7 @@ public class GameEngine extends JPanel{
 		
 		//5 on the same row
 		int cont = 0;
-		for(int col = 0; col < 15; col++)
+		for(int col = 0; col < numCells; col++)
 			if(matrix[i][col] != null)
 				if(matrix[i][col].getColor().equals(colore)) {
 					cont++;
@@ -278,18 +278,17 @@ public class GameEngine extends JPanel{
 		int k = i - min;
 		int l = j - min;
 		while(k < numCells && l < numCells) {
-			
-			if(matrix[k][l] != null)
+			if(matrix[k][l] != null) {
 				if(matrix[k][l].getColor().equals(colore)) {
 					cont++;
 					if(cont == 5) return true;
-				}
-				else
+				} else
 					cont = 0;
-			else
+			} else
 				cont = 0;
 			k++;
 			l++;
+			
 		}
 		
 		//5 on second
@@ -300,21 +299,22 @@ public class GameEngine extends JPanel{
 			k--;
 			l++;
 		}
+
 		
 		while(k < numCells && l >= 0) {
 			
-			if(matrix[k][l] != null)
+			if(matrix[k][l] != null) {
 				if(matrix[k][l].getColor().equals(colore)) {
 					cont++;
 					if(cont == 5) return true;
-				}
-				else
+				} else
 					cont = 0;
-			else
+			} else
 				cont = 0;
 			k++;
 			l--;
 		}
+	
 		return false;
 	}
 }
