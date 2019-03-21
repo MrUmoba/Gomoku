@@ -21,6 +21,14 @@ cellColFourBackAlt:- cell(X,Y,1), cell(X,Y+1,0), cell(X,Y+2,1), cell(X,Y+3,1), c
 cellDiagFourBackAlt:- cell(X,Y,1), cell(X+1,Y+1,0), cell(X+2,Y+2,1), cell(X+3,Y+3,1), cell(X+4,Y+4,1), nonPlace(X+1,Y+1).
 cellInvDiagFourBackAlt:- cell(X,Y,1), cell(X+1,Y-1,0), cell(X+2,Y-2,1), cell(X+3,Y-3,1), cell(X+4,Y-4,1), nonPlace(X+1,Y-1).
 
+
+%difesa(4 alternate 11011)
+cellRowFourAlter:- cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,0), cell(X+3,Y,1), cell(X+4,Y,1), nonPlace(X+2,Y).
+cellColFourAlter:- cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,0), cell(X,Y+3,1), cell(X,Y+4,1), nonPlace(X,Y+2).
+cellDiagFourAlter:- cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,0), cell(X+3,Y+3,1), cell(X+4,Y+4,1), nonPlace(X+2,Y+2).
+cellInvDiagFourAlter:- cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,0), cell(X+3,Y-3,1), cell(X+4,Y-4,1), nonPlace(X+2,Y-2).
+
+
 %difesa(4)
 cellRowFour:- cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,1), cell(X+3,Y,1), cell(X+4,Y,0), nonPlace(X+4,Y).
 cellColFour:- cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,1), cell(X,Y+3,1), cell(X,Y+4,0), nonPlace(X,Y+4).
@@ -95,6 +103,13 @@ cellInvDiagOneBack:- cell(X-1,Y+1,0), cell(X,Y,1), nonPlace(X-1,Y+1).
 :~cellDiagFourBackAlt. [2@19]
 :~cellInvDiagFourBackAlt. [2@19]
 
+%difesa (4 alternate 11011)
+:~cellRowFourAlter. [1@21]
+:~cellColFourAlter. [1@21]
+:~cellDiagFourAlter. [1@21]
+:~cellInvDiagFourAlter. [1@21]
+
+
 %difesa (4)
 :~cellRowFour. [1@20]
 :~cellColFour. [1@20]
@@ -164,6 +179,12 @@ cellAttColFourBackAlt:- cell(X,Y,2), cell(X,Y+1,0), cell(X,Y+2,2), cell(X,Y+3,2)
 cellAttDiagFourBackAlt:- cell(X,Y,2), cell(X+1,Y+1,0), cell(X+2,Y+2,2), cell(X+3,Y+3,2), cell(X+4,Y+4,2), nonPlace(X+1,Y+1).
 cellAttInvDiagFourBackAlt:- cell(X,Y,2), cell(X+1,Y-1,0), cell(X+2,Y-2,2), cell(X+3,Y-3,2), cell(X+4,Y-4,2), nonPlace(X+1,Y-1).
 
+%attacco(4 alternate 11011)
+cellAttRowFourAlter:- cell(X,Y,2), cell(X+1,Y,2), cell(X+2,Y,0), cell(X+3,Y,2), cell(X+4,Y,2), nonPlace(X+2,Y).
+cellAttColFourAlter:- cell(X,Y,2), cell(X,Y+1,2), cell(X,Y+2,0), cell(X,Y+3,2), cell(X,Y+4,2), nonPlace(X,Y+2).
+cellAttDiagFourAlter:- cell(X,Y,2), cell(X+1,Y+1,2), cell(X+2,Y+2,0), cell(X+3,Y+3,2), cell(X+4,Y+4,2), nonPlace(X+2,Y+2).
+cellAttInvDiagFourAlter:- cell(X,Y,2), cell(X+1,Y-1,2), cell(X+2,Y-2,0), cell(X+3,Y-3,2), cell(X+4,Y-4,2), nonPlace(X+2,Y-2).
+
 
 %attacco(4)
 rowFour:- cell(X,Y,2), cell(X+1,Y,2), cell(X+2,Y,2), cell(X+3,Y,2), cell(X+4,Y,0), nonPlace(X+4,Y).
@@ -223,14 +244,20 @@ cellAttInvDiagOneBack:- cell(X-1,Y+1,0), cell(X,Y,2), nonPlace(X-1,Y+1).
 								
 								%PRIORITA' ATTACCO
 %attacco (4 alternate)
-:~cellAttRowFourAlt. [1@21]
-:~cellAttColFourAlt. [1@21]
-:~cellAttDiagFourAlt. [1@21]
-:~cellAttInvDiagFourAlt. [1@21]
-:~cellAttRowFourBackAlt. [2@21]
-:~cellAttColFourBackAlt. [2@21]
-:~cellAttDiagFourBackAlt. [2@21]
-:~cellAttInvDiagFourBackAlt. [2@21]
+:~cellAttRowFourAlt. [1@22]
+:~cellAttColFourAlt. [1@22]
+:~cellAttDiagFourAlt. [1@22]
+:~cellAttInvDiagFourAlt. [1@22]
+:~cellAttRowFourBackAlt. [2@22]
+:~cellAttColFourBackAlt. [2@22]
+:~cellAttDiagFourBackAlt. [2@22]
+:~cellAttInvDiagFourBackAlt. [2@22]
+
+%attacco (4 alternate 11011)
+:~cellAttRowFourAlter. [1@23]
+:~cellAttColFourAlter. [1@23]
+:~cellAttDiagFourAlter. [1@23]
+:~cellAttInvDiagFourAlter. [1@23]
 
 %attacco (4)
 :-rowFour.
