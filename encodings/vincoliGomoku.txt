@@ -192,7 +192,7 @@ cellAttColFourStolenBack:- cell(X,Y,0), cell(X,Y+1,2), cell(X,Y+2,0), cell(X,Y+3
 cellAttDiagStolenBack:- cell(X,Y,0), cell(X+1,Y+1,2), cell(X+2,Y+2,0), cell(X+3,Y+3,2), cell(X+4,Y+4,2),cell(X+5,Y+5,0), nonPlace(X+2,Y+2).
 cellAttInvDiagStolenBack:- cell(X,Y,0), cell(X+1,Y-1,2), cell(X+2,Y-2,0), cell(X+3,Y-3,2), cell(X+4,Y-4,2),cell(X+5,Y-5,0), nonPlace(X+2,Y-2).
 
-	%difesa 
+	%difesa  
 cellRowStolen:- cell(X,Y,0), cell(X+1,Y,1), cell(X+2,Y,1), cell(X+3,Y,0), cell(X+4,Y,1),cell(X+5,Y,0), nonPlace(X+3,Y).
 cellColStolen:- cell(X,Y,0), cell(X,Y+1,1), cell(X,Y+2,1), cell(X,Y+3,0), cell(X,Y+4,1),cell(X,Y+5,0), nonPlace(X,Y+3).
 cellDiagStolen:- cell(X,Y,0), cell(X+1,Y+1,1), cell(X+2,Y+2,1), cell(X+3,Y+3,0), cell(X+4,Y+4,1),cell(X+5,Y+5,0), nonPlace(X+3,Y+3).
@@ -203,168 +203,194 @@ cellColFourStolenBack:- cell(X,Y,0), cell(X,Y+1,1), cell(X,Y+2,0), cell(X,Y+3,1)
 cellDiagStolenBack:- cell(X,Y,0), cell(X+1,Y+1,1), cell(X+2,Y+2,0), cell(X+3,Y+3,1), cell(X+4,Y+4,1),cell(X+5,Y+5,0), nonPlace(X+2,Y+2).
 cellInvDiagStolenBack:- cell(X,Y,0), cell(X+1,Y-1,1), cell(X+2,Y-2,0), cell(X+3,Y-3,1), cell(X+4,Y-4,1),cell(X+5,Y-5,0), nonPlace(X+2,Y-2).
 
+	%difesa 11010 - 01011
+cellRowCross:- cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,0), cell(X+3,Y,1), cell(X+4,Y,0), nonPlace(X+4,Y).
+cellColCross:- cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,0), cell(X,Y+3,1), cell(X,Y+4,0), nonPlace(X,Y+4).
+cellDiagCross:- cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,0), cell(X+3,Y+3,1), cell(X+4,Y+4,0), nonPlace(X+4,Y+4).
+cellInvDiagCross:- cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,0), cell(X+3,Y-3,1), cell(X+4,Y-4,0), nonPlace(X+4,Y-4).
+
+cellRowCrossBack:- cell(X,Y,0), cell(X+1,Y,1), cell(X+2,Y,0), cell(X+3,Y,1), cell(X+4,Y,1), nonPlace(X,Y).
+cellColFourCrossBack:- cell(X,Y,0), cell(X,Y+1,1), cell(X,Y+2,0), cell(X,Y+3,1), cell(X,Y+4,1), nonPlace(X,Y).
+cellDiagCrossBack:- cell(X,Y,0), cell(X+1,Y+1,1), cell(X+2,Y+2,0), cell(X+3,Y+3,1), cell(X+4,Y+4,1), nonPlace(X,Y).
+cellInvDiagCrossBack:- cell(X,Y,0), cell(X+1,Y-1,1), cell(X+2,Y-2,0), cell(X+3,Y-3,1), cell(X+4,Y-4,1), nonPlace(X,Y).
+
 
 %attacco (4)
-:-rowFour.
-:~colFour. [1@100]
-:~diagFour. [1@100]
-:~invDiagFour. [1@100]
-:~rowFourBack. [1@100]
-:~colFourBack. [2@100]
-:~diagFourBack. [2@100]
-:~invDiagFourBack. [2@100]			
+:~rowFour. [1@18]
+:~colFour. [1@18]
+:~diagFour. [1@18]
+:~invDiagFour. [1@18]
+:~rowFourBack. [1@18]
+:~colFourBack. [1@18]
+:~diagFourBack. [1@18]
+:~invDiagFourBack. [1@18]			
 			
-%attacco (4 alternate)
-:~cellAttRowFourAlt. [1@22]
-:~cellAttColFourAlt. [1@22]
-:~cellAttDiagFourAlt. [1@22]
-:~cellAttInvDiagFourAlt. [1@22]
-:~cellAttRowFourBackAlt. [2@22]
-:~cellAttColFourBackAlt. [2@22]
-:~cellAttDiagFourBackAlt. [2@22]
-:~cellAttInvDiagFourBackAlt. [2@22]
 
 %attacco (4 alternate 11011)
-:~cellAttRowFourAlter. [1@23]
-:~cellAttColFourAlter. [1@23]
-:~cellAttDiagFourAlter. [1@23]
-:~cellAttInvDiagFourAlter. [1@23]			
-			
+:~cellAttRowFourAlter. [1@17]
+:~cellAttColFourAlter. [1@17]
+:~cellAttDiagFourAlter. [1@17]
+:~cellAttInvDiagFourAlter. [1@17]			
+
+%attacco (4 alternate)
+:~cellAttRowFourAlt. [1@16]
+:~cellAttColFourAlt. [1@16]
+:~cellAttDiagFourAlt. [1@16]
+:~cellAttInvDiagFourAlt. [1@16]
+:~cellAttRowFourBackAlt. [1@16]
+:~cellAttColFourBackAlt. [1@16]
+:~cellAttDiagFourBackAlt. [1@16]
+:~cellAttInvDiagFourBackAlt. [1@16]
+
 %difesa (4 alternate 11011)
-:~cellRowFourAlter. [1@21]
-:~cellColFourAlter. [1@21]
-:~cellDiagFourAlter. [1@21]
-:~cellInvDiagFourAlter. [1@21]			
+:~cellRowFourAlter. [1@15]
+:~cellColFourAlter. [1@15]
+:~cellDiagFourAlter. [1@15]
+:~cellInvDiagFourAlter. [1@15]			
 
 %difesa (4)
-:~cellRowFour. [1@20]
-:~cellColFour. [1@20]
-:~cellDiagFour. [1@20]
-:~cellInvDiagFour. [1@20]
-:~cellRowFourBack. [2@20]
-:~cellColFourBack. [2@20]
-:~cellDiagFourBack. [2@20]
-:~cellInvDiagFourBack. [2@20]
+:~cellRowFour. [1@14]
+:~cellColFour. [1@14]
+:~cellDiagFour. [1@14]
+:~cellInvDiagFour. [1@14]
+:~cellRowFourBack. [1@14]
+:~cellColFourBack. [1@14]
+:~cellDiagFourBack. [1@14]
+:~cellInvDiagFourBack. [1@14]
 			
 %difesa (4 alternate)
-:~cellRowFourAlt. [1@19]
-:~cellColFourAlt. [1@19]
-:~cellDiagFourAlt. [1@19]
-:~cellInvDiagFourAlt. [1@19]
-:~cellRowFourBackAlt. [2@19]
-:~cellColFourBackAlt. [2@19]
-:~cellDiagFourBackAlt. [2@19]
-:~cellInvDiagFourBackAlt. [2@19]
+:~cellRowFourAlt. [1@13]
+:~cellColFourAlt. [1@13]
+:~cellDiagFourAlt. [1@13]
+:~cellInvDiagFourAlt. [1@13]
+:~cellRowFourBackAlt. [1@13]
+:~cellColFourBackAlt. [1@13]
+:~cellDiagFourBackAlt. [1@13]
+:~cellInvDiagFourBackAlt. [1@13]
 
 
 
 %tatticarubata(011010)
 
-	%difesa
-:~cellRowStolen. [1@10]
-:~cellColStolen. [1@10]
-:~cellDiagStolen. [1@10]
-:~cellInvDiagStolen. [1@10]
-:~cellRowStolenBack. [2@10]
-:~cellColStolenBack. [2@10]
-:~cellDiagStolenBack. [2@10]
-:~cellInvDiagStolenBack. [2@10]
-
 	%attacco
-:~cellAttRowStolen. [1@11]
-:~cellAttColStolen. [1@11]
-:~cellAttDiagStolen. [1@11]
-:~cellAttInvDiagStolen. [1@11]
-:~cellAttRowStolenBack. [2@11]
-:~cellAttColStolenBack. [2@11]
-:~cellAttDiagStolenBack. [2@11]
-:~cellAttInvDiagStolenBack. [2@11]
+:~cellAttRowStolen. [1@12]
+:~cellAttColStolen. [1@12]
+:~cellAttDiagStolen. [1@12]
+:~cellAttInvDiagStolen. [1@12]
+:~cellAttRowStolenBack. [1@12]
+:~cellAttColStolenBack. [1@12]
+:~cellAttDiagStolenBack. [1@12]
+:~cellAttInvDiagStolenBack. [1@12]
+
+
+
+	%difesa
+:~cellRowStolen. [1@11]
+:~cellColStolen. [1@11]
+:~cellDiagStolen. [1@11]
+:~cellInvDiagStolen. [1@11]
+:~cellRowStolenBack. [1@11]
+:~cellColStolenBack. [1@11]
+:~cellDiagStolenBack. [1@11]
+:~cellInvDiagStolenBack. [1@11]
+
 
 %attacco(3 aperti)
-:~cellAttRowThreeOpen. [1@9]
-:~cellAttColThreeOpen. [1@9]
-:~cellAttDiagThreeOpen. [1@9]
-:~cellAttInvDiagThreeOpen. [1@9]
-:~cellAttRowThreeBackOpen. [2@9]
-:~cellAttColThreeBackOpen. [2@9]
-:~cellAttDiagThreeBackOpen. [2@9]
-:~cellAttInvDiagThreeBackOpen. [2@9]
+:~cellAttRowThreeOpen. [1@10]
+:~cellAttColThreeOpen. [1@10]
+:~cellAttDiagThreeOpen. [1@10]
+:~cellAttInvDiagThreeOpen. [1@10]
+:~cellAttRowThreeBackOpen. [1@10]
+:~cellAttColThreeBackOpen. [1@10]
+:~cellAttDiagThreeBackOpen. [1@10]
+:~cellAttInvDiagThreeBackOpen. [1@10]
 
 %difesa(3 aperti)
-:~cellRowThreeOpen. [1@8]
-:~cellColThreeOpen. [1@8]
-:~cellDiagThreeOpen. [1@8]
-:~cellInvDiagThreeOpen. [1@8]
-:~cellRowThreeBackOpen. [2@8]
-:~cellColThreeBackOpen. [2@8]
-:~cellDiagThreeBackOpen. [2@8]
-:~cellInvDiagThreeBackOpen. [2@8]
+:~cellRowThreeOpen. [1@9]
+:~cellColThreeOpen. [1@9]
+:~cellDiagThreeOpen. [1@9]
+:~cellInvDiagThreeOpen. [1@9]
+:~cellRowThreeBackOpen. [1@9]
+:~cellColThreeBackOpen. [1@9]
+:~cellDiagThreeBackOpen. [1@9]
+:~cellInvDiagThreeBackOpen. [1@9]
 
 %attacco (3)
-:~cellAttRowThree. [1@7]
-:~cellAttColThree. [1@7]
-:~cellAttDiagThree. [1@7]
-:~cellAttInvDiagThree. [1@7]
-:~cellAttRowThreeBack. [2@7]
-:~cellAttColThreeBack. [2@7]
-:~cellAttDiagThreeBack. [2@7]
-:~cellAttInvDiagThreeBack. [2@7]
+:~cellAttRowThree. [1@3]
+:~cellAttColThree. [1@3]
+:~cellAttDiagThree. [1@3]
+:~cellAttInvDiagThree. [1@3]
+:~cellAttRowThreeBack. [1@3]
+:~cellAttColThreeBack. [1@3]
+:~cellAttDiagThreeBack. [1@3]
+:~cellAttInvDiagThreeBack. [1@3]
+
+%difesa 11010 - 01011
+:~cellRowCross. [1@7] 
+:~cellColCross. [1@7]
+:~cellDiagCross. [1@7]
+:~cellInvDiagCross. [1@7]
+:~cellRowCrossBack. [1@7]
+:~cellColCrossBack. [1@7]
+:~cellDiagCrossBack. [1@7]
+:~cellInvDiagCrossBack. [1@7]
+
 
 %attacco (2 aperti)
 :~cellAttRowTwoOpen. [1@6]
 :~cellAttColTwoOpen. [1@6]
 :~cellAttDiagTwoOpne. [1@6]
 :~cellAttInvDiagTwoOpen. [1@6]
-:~cellAttRowTwoBackOpen. [2@6]
-:~cellAttColTwoBackOpen. [2@6]
-:~cellAttDiagTwoBackOpen. [2@6]
-:~cellAttInvDiagTwoBackOpen.  [2@6]
+:~cellAttRowTwoBackOpen. [1@6]
+:~cellAttColTwoBackOpen. [1@6]
+:~cellAttDiagTwoBackOpen. [1@6]
+:~cellAttInvDiagTwoBackOpen.  [1@6]
 
 %difesa (2 aperti)
 :~cellRowTwoOpen. [1@5]
 :~cellColTwoOpen. [1@5]
 :~cellDiagTwoOpen. [1@5]
 :~cellInvDiagTwoOpen. [1@5]
-:~cellRowTwoBackOpen. [2@5]
-:~cellColTwoBackOpen. [2@5]
-:~cellDiagTwoBackOpen. [2@5]
-:~cellInvDiagTwoBackOpen. [2@5]
+:~cellRowTwoBackOpen. [1@5]
+:~cellColTwoBackOpen. [1@5]
+:~cellDiagTwoBackOpen. [1@5]
+:~cellInvDiagTwoBackOpen. [1@5]
 
 %difesa palla-vuoto-palla
-:~cellRowAlt. [1@4]
-:~cellColAlt. [1@4]
-:~cellDiagAlt. [1@4]
-:~cellInvDiagAlt. [1@4]
+:~cellRowAlt. [2@4]
+:~cellColAlt. [2@4]
+:~cellDiagAlt. [2@4]
+:~cellInvDiagAlt. [2@4]
 
 %attacco (2)
 :~cellAttRowTwo. [1@4]
 :~cellAttColTwo. [1@4]
 :~cellAttDiagTwo. [1@4]
 :~cellAttInvDiagTwo. [1@4]
-:~cellAttRowTwoBack. [2@4]
-:~cellAttColTwoBack. [2@4]
-:~cellAttDiagTwoBack. [2@4]
-:~cellAttInvDiagTwoBack.  [2@4]
+:~cellAttRowTwoBack. [1@4]
+:~cellAttColTwoBack. [1@4]
+:~cellAttDiagTwoBack. [1@4]
+:~cellAttInvDiagTwoBack.  [1@4]
 
 %attacco (1)
 :~cellAttRowOne. [1@2]
 :~cellAttColOne. [1@2]
 :~cellAttDiagOne. [1@2]
 :~cellAttInvDiagOne. [1@2]
-:~cellAttRowOneBack. [2@2]
-:~cellAttColOneBack. [2@2]
-:~cellAttDiagOneBack. [2@2]
-:~cellAttInvDiagOneBack.  [2@2]
+:~cellAttRowOneBack. [1@2]
+:~cellAttColOneBack. [1@2]
+:~cellAttDiagOneBack. [1@2]
+:~cellAttInvDiagOneBack.  [1@2]
 
 %difesa (3)
-:~cellRowThree. [1@3]
-:~cellColThree. [1@3]
-:~cellDiagThree. [1@3]
-:~cellInvDiagThree. [1@3]
-:~cellRowThreeBack. [2@3]
-:~cellColThreeBack. [2@3]
-:~cellDiagThreeBack. [2@3]
-:~cellInvDiagThreeBack. [2@3]
+:~cellRowThree. [1@8]
+:~cellColThree. [1@8]
+:~cellDiagThree. [1@8]
+:~cellInvDiagThree. [1@8]
+:~cellRowThreeBack. [1@8]
+:~cellColThreeBack. [1@8]
+:~cellDiagThreeBack. [1@8]
+:~cellInvDiagThreeBack. [1@8]
 
 
 
@@ -373,7 +399,7 @@ cellInvDiagStolenBack:- cell(X,Y,0), cell(X+1,Y-1,1), cell(X+2,Y-2,0), cell(X+3,
 :~cellColOne. [1@1]
 :~cellDiagOne. [1@1]
 :~cellInvDiagOne. [1@1]
-:~cellRowOneBack. [2@1]
-:~cellColOneBack. [2@1]
-:~cellDiagOneBack. [2@1]
-:~cellInvDiagOneBack.  [2@1]
+:~cellRowOneBack. [1@1]
+:~cellColOneBack. [1@1]
+:~cellDiagOneBack. [1@1]
+:~cellInvDiagOneBack.  [1@1]
