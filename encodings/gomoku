@@ -1,0 +1,418 @@
+row(0..14).
+column(0..14).
+
+cell(5,6,2).
+cell(6,6,2).
+
+cell(6,7,1).
+cell(8,7,1).
+cell(5,8,2).
+cell(6,8,2).
+cell(7,8,1).
+cell(6,9,1).
+cell(7,9,2).
+cell(7,10,1).
+cell(8,11,1).
+
+%cell(X,Y,Valore).
+% 0 = Vuoto, 1 = Giocatore, 2 = AI.
+
+cell(X,Y,0):- not cell(X,Y,1),not cell(X,Y,2), row(X), column(Y).
+place(X,Y) | nonPlace(X,Y):- cell(X,Y,0), row(X), column(Y).
+
+:-#count{X,Y:place(X,Y)}!=1.
+
+							%DIFESA
+%difesa(4 alternate)
+cellRowFourAlt:- cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,1), cell(X+3,Y,0), cell(X+4,Y,1), nonPlace(X+3,Y).
+cellColFourAlt:- cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,1), cell(X,Y+3,0), cell(X,Y+4,1), nonPlace(X,Y+3).
+cellDiagFourAlt:- cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,1), cell(X+3,Y+3,0), cell(X+4,Y+4,1), nonPlace(X+3,Y+3).
+cellInvDiagFourAlt:- cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,1), cell(X+3,Y-3,0), cell(X+4,Y-4,1), nonPlace(X+3,Y-3).
+
+cellRowFourBackAlt:- cell(X,Y,1), cell(X+1,Y,0), cell(X+2,Y,1), cell(X+3,Y,1), cell(X+4,Y,1), nonPlace(X+1,Y).
+cellColFourBackAlt:- cell(X,Y,1), cell(X,Y+1,0), cell(X,Y+2,1), cell(X,Y+3,1), cell(X,Y+4,1), nonPlace(X,Y+1).
+cellDiagFourBackAlt:- cell(X,Y,1), cell(X+1,Y+1,0), cell(X+2,Y+2,1), cell(X+3,Y+3,1), cell(X+4,Y+4,1), nonPlace(X+1,Y+1).
+cellInvDiagFourBackAlt:- cell(X,Y,1), cell(X+1,Y-1,0), cell(X+2,Y-2,1), cell(X+3,Y-3,1), cell(X+4,Y-4,1), nonPlace(X+1,Y-1).
+
+
+%difesa(4 alternate 11011)
+cellRowFourAlter:- cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,0), cell(X+3,Y,1), cell(X+4,Y,1), nonPlace(X+2,Y).
+cellColFourAlter:- cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,0), cell(X,Y+3,1), cell(X,Y+4,1), nonPlace(X,Y+2).
+cellDiagFourAlter:- cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,0), cell(X+3,Y+3,1), cell(X+4,Y+4,1), nonPlace(X+2,Y+2).
+cellInvDiagFourAlter:- cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,0), cell(X+3,Y-3,1), cell(X+4,Y-4,1), nonPlace(X+2,Y-2).
+
+
+%difesa(4)
+cellRowFour:- cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,1), cell(X+3,Y,1), cell(X+4,Y,0), nonPlace(X+4,Y).
+cellColFour:- cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,1), cell(X,Y+3,1), cell(X,Y+4,0), nonPlace(X,Y+4).
+cellDiagFour:- cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,1), cell(X+3,Y+3,1), cell(X+4,Y+4,0), nonPlace(X+4,Y+4).
+cellInvDiagFour:- cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,1), cell(X+3,Y-3,1), cell(X+4,Y-4,0), nonPlace(X+4,Y-4).
+
+cellRowFourBack:- cell(X,Y,0), cell(X+1,Y,1), cell(X+2,Y,1), cell(X+3,Y,1), cell(X+4,Y,1), nonPlace(X,Y).
+cellColFourBack:- cell(X,Y,0), cell(X,Y+1,1), cell(X,Y+2,1), cell(X,Y+3,1), cell(X,Y+4,1), nonPlace(X,Y).
+cellDiagFourBack:- cell(X,Y,0), cell(X+1,Y+1,1), cell(X+2,Y+2,1), cell(X+3,Y+3,1), cell(X+4,Y+4,1), nonPlace(X,Y).
+cellInvDiagFourBack:- cell(X,Y,0), cell(X+1,Y-1,1), cell(X+2,Y-2,1), cell(X+3,Y-3,1), cell(X+4,Y-4,1), nonPlace(X,Y).
+
+%difesa (3 )
+cellRowThree:- cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,1), cell(X+3,Y,0), cell(X+4,Y,0), nonPlace(X+3,Y).
+cellColThree:- cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,1), cell(X,Y+3,0), cell(X,Y+4,0),nonPlace(X,Y+3).
+cellDiagThree:-  cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,1), cell(X+3,Y+3,0), cell(X+4,Y+4,0),nonPlace(X+3,Y+3).
+cellInvDiagThree:-  cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,1), cell(X+3,Y-3,0), cell(X+4,Y-4,0),nonPlace(X+3,Y-3).
+
+cellRowThreeBack:- cell(X-2,Y,0), cell(X-1,Y,0), cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,1), nonPlace(X-1,Y).
+cellColThreeBack:- cell(X,Y-2,0,0), cell(X,Y-1,0), cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,1),  nonPlace(X,Y-1).
+cellDiagThreeBack:- cell(X-2,Y-2,0), cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,1), nonPlace(X-1,Y-1).
+cellInvDiagThreeBack:- cell(X-2,Y+2,0), cell(X-1,Y+1,0), cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,1), nonPlace(X-1,Y+1).
+
+%difesa( 3 aperti)
+cellRowThreeOpen:- cell(X-1,Y,0),cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,1), cell(X+3,Y,0), nonPlace(X+3,Y).
+cellColThreeOpen:- cell(X,Y-1,0),cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,1), cell(X,Y+3,0), nonPlace(X,Y+3).
+cellDiagThreeOpen:-  cell(X-1,Y-1,0),cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,1), cell(X+3,Y+3,0), nonPlace(X+3,Y+3).
+cellInvDiagThreeOpen:-  cell(X-1,Y+1,0), cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,1), cell(X+3,Y-3,0), nonPlace(X+3,Y-3).
+
+cellRowThreeBackOpen:- cell(X-1,Y,0), cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,1),cell(X+3,Y,0), nonPlace(X-1,Y).
+cellColThreeBackOpen:- cell(X,Y-1,0), cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,1),cell(X,Y+3,0),  nonPlace(X,Y-1).
+cellDiagThreeBackOpen:- cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,1),cell(X+3,Y+3,0), nonPlace(X-1,Y-1).
+cellInvDiagThreeBackOpen:- cell(X-1,Y+1,0), cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,1),cell(X+3,Y-3,0), nonPlace(X-1,Y+1).
+
+
+%difesa (2 aperti)
+cellRowTwoOpen:- cell(X-2,Y,0),cell(X-1,Y,0),cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,0),cell(X+3,Y,0), nonPlace(X+2,Y).
+cellColTwoOpen:- cell(X,Y-2,0),cell(X,Y-1,0),cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,0),cell(X,Y+3,0),  nonPlace(X,Y+2).
+cellDiagTwoOpen:-  cell(X-2,Y-2,0),cell(X-1,Y-1,0),cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,0),cell(X+3,Y+3,0),  nonPlace(X+2,Y+2).
+cellInvDiagTwoOpen:- cell(X-2,Y+2,0), cell(X-1,Y+1,0), cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,0),cell(X+3,Y-2,0),  nonPlace(X+2,Y-2).
+
+cellRowTwoBackOpen:- cell(X-2,Y,0),cell(X-1,Y,0), cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,0),cell(X+3,Y,0), nonPlace(X-1,Y).
+cellColTwoBackOpen:- cell(X,Y-2,0),cell(X,Y-1,0), cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,0),cell(X,Y+3,0),  nonPlace(X,Y-1).
+cellDiagTwoBackOpen:- cell(X-2,Y-2,0),cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,0),cell(X+3,Y+3,0), nonPlace(X-1,Y-1).
+cellInvDiagTwoBackOpen:- cell(X-1,Y+2,0),cell(X-1,Y+1,0), cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,0),cell(X+3,Y-3,0), nonPlace(X-1,Y+1).
+
+
+%difesa (palla-vuoto-palla)
+cellRowAlt :- cell(X,Y,1), cell(X+1,Y,0), cell(X+2,Y,1), nonPlace(X+1,Y).
+cellColAlt:- cell(X,Y,1), cell(X,Y+1,0), cell(X,Y+2,1), nonPlace(X,Y+1).
+cellDiagAlt:- cell(X,Y,1), cell(X+1,Y+1,0), cell(X+2,Y+2,1), nonPlace(X+1,Y+1).
+cellInvDiagAlt:- cell(X,Y,1), cell(X+1,Y-1,0), cell(X+2,Y-2,1), nonPlace(X+1,Y-1).
+
+%difesa (1)
+cellRowOne:-  cell(X,Y,1), cell(X+1,Y,0), nonPlace(X+1,Y).
+cellColOne:-  cell(X,Y,1), cell(X,Y+1,0),  nonPlace(X,Y+1).
+cellDiagOne:-  cell(X,Y,1), cell(X+1,Y+1,0),  nonPlace(X+1,Y+1).
+cellInvDiagOne:-  cell(X,Y,1), cell(X+1,Y-1,0), nonPlace(X+1,Y-1).
+
+cellRowOneBack:- cell(X-1,Y,0), cell(X,Y,1), nonPlace(X-1,Y).
+cellColOneBack:- cell(X,Y-1,0), cell(X,Y,1), nonPlace(X,Y-1).
+cellDiagOneBack:- cell(X-1,Y-1,0), cell(X,Y,1), nonPlace(X-1,Y-1).
+cellInvDiagOneBack:- cell(X-1,Y+1,0), cell(X,Y,1), nonPlace(X-1,Y+1).
+
+%attacco(4 alternate)
+cellAttRowFourAlt:- cell(X,Y,2), cell(X+1,Y,2), cell(X+2,Y,2), cell(X+3,Y,0), cell(X+4,Y,2), nonPlace(X+3,Y).
+cellAttColFourAlt:- cell(X,Y,2), cell(X,Y+1,2), cell(X,Y+2,2), cell(X,Y+3,0), cell(X,Y+4,2), nonPlace(X,Y+3).
+cellAttDiagFourAlt:- cell(X,Y,2), cell(X+1,Y+1,2), cell(X+2,Y+2,2), cell(X+3,Y+3,0), cell(X+4,Y+4,2), nonPlace(X+3,Y+3).
+cellAttInvDiagFourAlt:- cell(X,Y,2), cell(X+1,Y-1,2), cell(X+2,Y-2,2), cell(X+3,Y-3,0), cell(X+4,Y-4,2), nonPlace(X+3,Y-3).
+
+cellAttRowFourBackAlt:- cell(X,Y,2), cell(X+1,Y,0), cell(X+2,Y,2), cell(X+3,Y,2), cell(X+4,Y,2), nonPlace(X+1,Y).
+cellAttColFourBackAlt:- cell(X,Y,2), cell(X,Y+1,0), cell(X,Y+2,2), cell(X,Y+3,2), cell(X,Y+4,2), nonPlace(X,Y+1).
+cellAttDiagFourBackAlt:- cell(X,Y,2), cell(X+1,Y+1,0), cell(X+2,Y+2,2), cell(X+3,Y+3,2), cell(X+4,Y+4,2), nonPlace(X+1,Y+1).
+cellAttInvDiagFourBackAlt:- cell(X,Y,2), cell(X+1,Y-1,0), cell(X+2,Y-2,2), cell(X+3,Y-3,2), cell(X+4,Y-4,2), nonPlace(X+1,Y-1).
+
+%attacco(4 alternate 11011)
+cellAttRowFourAlter:- cell(X,Y,2), cell(X+1,Y,2), cell(X+2,Y,0), cell(X+3,Y,2), cell(X+4,Y,2), nonPlace(X+2,Y).
+cellAttColFourAlter:- cell(X,Y,2), cell(X,Y+1,2), cell(X,Y+2,0), cell(X,Y+3,2), cell(X,Y+4,2), nonPlace(X,Y+2).
+cellAttDiagFourAlter:- cell(X,Y,2), cell(X+1,Y+1,2), cell(X+2,Y+2,0), cell(X+3,Y+3,2), cell(X+4,Y+4,2), nonPlace(X+2,Y+2).
+cellAttInvDiagFourAlter:- cell(X,Y,2), cell(X+1,Y-1,2), cell(X+2,Y-2,0), cell(X+3,Y-3,2), cell(X+4,Y-4,2), nonPlace(X+2,Y-2).
+
+
+%attacco(4)
+rowFour:- cell(X,Y,2), cell(X+1,Y,2), cell(X+2,Y,2), cell(X+3,Y,2), cell(X+4,Y,0), nonPlace(X+4,Y).
+colFour:- cell(X,Y,2), cell(X,Y+1,2), cell(X,Y+2,2), cell(X,Y+3,2), cell(X,Y+4,0), nonPlace(X,Y+4).
+diagFour:- cell(X,Y,2), cell(X+1,Y+1,2), cell(X+2,Y+2,2), cell(X+3,Y+3,2), cell(X+4,Y+4,0), nonPlace(X+4,Y+4).
+invDiagFour:- cell(X,Y,2), cell(X+1,Y-1,2), cell(X+2,Y-2,2), cell(X+3,Y-3,2), cell(X+4,Y-4,0), nonPlace(X+4,Y-4).
+
+rowFourBack:- cell(X,Y,0), cell(X+1,Y,2), cell(X+2,Y,2), cell(X+3,Y,2), cell(X+4,Y,2), nonPlace(X,Y).
+colFourBack:- cell(X,Y,0), cell(X,Y+1,2), cell(X,Y+2,2), cell(X,Y+3,2), cell(X,Y+4,2), nonPlace(X,Y).
+diagFourBack:- cell(X,Y,0), cell(X+1,Y+1,2), cell(X+2,Y+2,2), cell(X+3,Y+3,2), cell(X+4,Y+4,2), nonPlace(X,Y).
+invDiagFourBack:- cell(X,Y,0), cell(X+1,Y-1,2), cell(X+2,Y-2,2), cell(X+3,Y-3,2), cell(X+4,Y-4,2), nonPlace(X,Y).
+
+%attacco ( 3 )
+cellAttRowThree:- cell(X,Y,2), cell(X+1,Y,2), cell(X+2,Y,2), cell(X+3,Y,0), cell(X+4,Y,0), nonPlace(X+3,Y).
+cellAttColThree:- cell(X,Y,2), cell(X,Y+1,2), cell(X,Y+2,2), cell(X,Y+3,0), cell(X,Y+4,0),nonPlace(X,Y+3).
+cellAttDiagThree:-  cell(X,Y,2), cell(X+1,Y+1,2), cell(X+2,Y+2,2), cell(X+3,Y+3,0), cell(X+4,Y+4,0), nonPlace(X+3,Y+3).
+cellAttInvDiagThree:-  cell(X,Y,2), cell(X+1,Y-1,2), cell(X+2,Y-2,2), cell(X+3,Y-3,0), cell(X+4,Y-4,0),nonPlace(X+3,Y-3).
+
+cellAttRowThreeBack:- cell(X-2,Y,0), cell(X-1,Y,0), cell(X,Y,2), cell(X+1,Y,2), cell(X+2,Y,2), nonPlace(X-1,Y).
+cellAttColThreeBack:- cell(X,Y-2,0), cell(X,Y-1,0), cell(X,Y,2), cell(X,Y+1,2), cell(X,Y+2,2),  nonPlace(X,Y-1).
+cellAttDiagThreeBack:- cell(X-2,Y-2,0), cell(X-1,Y-1,0), cell(X,Y,2), cell(X+1,Y+1,2), cell(X+2,Y+2,2), nonPlace(X-1,Y-1).
+cellAttInvDiagThreeBack:- cell(X-2,Y+2,0), cell(X-1,Y+1,0), cell(X,Y,2), cell(X+1,Y-1,2), cell(X+2,Y-2,2), nonPlace(X-1,Y+1).
+
+%attacco(  3 aperti )
+cellAttRowThreeOpen:- cell(X-1,Y,0),cell(X,Y,2), cell(X+1,Y,2), cell(X+2,Y,2), cell(X+3,Y,0), nonPlace(X+3,Y).
+cellAttColThreeOpen:- cell(X,Y-1,0),cell(X,Y,2), cell(X,Y+1,2), cell(X,Y+2,2), cell(X,Y+3,0), nonPlace(X,Y+3).
+cellAttDiagThreeOpen:-  cell(X-1,Y-1,0),cell(X,Y,2), cell(X+1,Y+1,2), cell(X+2,Y+2,2), cell(X+3,Y+3,0), nonPlace(X+3,Y+3).
+cellAttInvDiagThreeOpen:-  cell(X-1,Y+1,0), cell(X,Y,2), cell(X+1,Y-1,2), cell(X+2,Y-2,2), cell(X+3,Y-3,0), nonPlace(X+3,Y-3).
+
+cellAttRowThreeBackOpen:- cell(X-1,Y,0), cell(X,Y,2), cell(X+1,Y,2), cell(X+2,Y,2),cell(X+3,Y,0), nonPlace(X-1,Y).
+cellAttColThreeBackOpen:- cell(X,Y-1,0), cell(X,Y,2), cell(X,Y+1,2), cell(X,Y+2,2),cell(X,Y+3,0),  nonPlace(X,Y-1).
+cellAttDiagThreeBackOpen:- cell(X-1,Y-1,0), cell(X,Y,2), cell(X+1,Y+1,2), cell(X+2,Y+2,2),cell(X+3,Y+3,0), nonPlace(X-1,Y-1).
+cellAttInvDiagThreeBackOpen:- cell(X-1,Y+1,0), cell(X,Y,2), cell(X+1,Y-1,2), cell(X+2,Y-2,2),cell(X+3,Y-3,0), nonPlace(X-1,Y+1).
+
+
+%attacco (2)
+cellAttRowTwo:-  cell(X,Y,2), cell(X+1,Y,2), cell(X+2,Y,0),cell(X+3,Y,0),cell(X+4,Y,0), nonPlace(X+2,Y).
+cellAttColTwo:-  cell(X,Y,2), cell(X,Y+1,2), cell(X,Y+2,0),cell(X,Y+3,0),cell(X,Y+4,0), nonPlace(X,Y+2).
+cellAttDiagTwo:-  cell(X,Y,2), cell(X+1,Y+1,2), cell(X+2,Y+2,0),cell(X+3,Y+3,0),cell(X+4,Y+4,0), nonPlace(X+2,Y+2).
+cellAttInvDiagTwo:-  cell(X,Y,2), cell(X+1,Y-1,2), cell(X+2,Y-2,0),cell(X+3,Y-3,0),cell(X+4,Y-4,0), nonPlace(X+2,Y-2).
+
+cellAttRowTwoBack:- cell(X-3,Y,0),cell(X-2,Y,0),cell(X-1,Y,0), cell(X,Y,2), cell(X+1,Y,2), nonPlace(X-1,Y).
+cellAttColTwoBack:- cell(X,Y-3,0),cell(X,Y-2,0),cell(X,Y-1,0), cell(X,Y,2), cell(X,Y+1,2), nonPlace(X,Y-1).
+cellAttDiagTwoBack:- cell(X-3,Y-3,0),cell(X-2,Y-2,0),cell(X-1,Y-1,0), cell(X,Y,2), cell(X+1,Y+1,2), nonPlace(X-1,Y-1).
+cellAttInvDiagTwoBack:- cell(X-3,Y+3,0),cell(X-2,Y+2,0),cell(X-1,Y+1,0), cell(X,Y,2), cell(X+1,Y-1,2), nonPlace(X-1,Y+1).
+
+%attacco (2 aperti)
+cellAttRowTwoOpen:- cell(X-2,Y,0),cell(X-1,Y,0),cell(X,Y,2), cell(X+1,Y,2), cell(X+2,Y,0),cell(X+3,Y,0), nonPlace(X+2,Y).
+cellAttColTwoOpen:- cell(X,Y-2,0),cell(X,Y-1,0),cell(X,Y,2), cell(X,Y+1,2), cell(X,Y+2,0),cell(X,Y+3,0),  nonPlace(X,Y+2).
+cellAttDiagTwoOpen:-  cell(X-2,Y-2,0),cell(X-1,Y-1,0),cell(X,Y,2), cell(X+1,Y+1,2), cell(X+2,Y+2,0),cell(X+3,Y+3,0),  nonPlace(X+2,Y+2).
+cellAttInvDiagTwoOpen:-  cell(X-2,Y+2,0),cell(X-1,Y+1,0), cell(X,Y,2), cell(X+1,Y-1,2), cell(X+2,Y-2,0),cell(X+3,Y-3,0),  nonPlace(X+2,Y-2).
+
+cellAttRowTwoBackOpen:- cell(X-2,Y,0),cell(X-1,Y,0), cell(X,Y,2), cell(X+1,Y,2), cell(X+2,Y,0),cell(X+3,Y,0), nonPlace(X-1,Y).
+cellAttColTwoBackOpen:- cell(X,Y-2,0),cell(X,Y-1,0), cell(X,Y,2), cell(X,Y+1,2), cell(X,Y+2,0),cell(X,Y+3,0),  nonPlace(X,Y-1).
+cellAttDiagTwoBackOpen:- cell(X-2,Y-2,0),cell(X-1,Y-1,0), cell(X,Y,2), cell(X+1,Y+1,2), cell(X+2,Y+2,0),cell(X+3,Y+3,0), nonPlace(X-1,Y-1).
+cellAttInvDiagTwoBackOpen:- cell(X-2,Y+2,0),cell(X-1,Y+1,0), cell(X,Y,2), cell(X+1,Y-1,2), cell(X+2,Y-2,0),cell(X+3,Y-3,0), nonPlace(X-1,Y+1).
+
+%attacco (1)
+cellAttRowOne:-  cell(X,Y,2), cell(X+1,Y,0), nonPlace(X+1,Y).
+cellAttColOne:-  cell(X,Y,2), cell(X,Y+1,0),  nonPlace(X,Y+1).
+cellAttDiagOne:-  cell(X,Y,2), cell(X+1,Y+1,0),  nonPlace(X+1,Y+1).
+cellAttInvDiagOne:-  cell(X,Y,2), cell(X+1,Y-1,0), nonPlace(X+1,Y-1).
+
+cellAttRowOneBack:- cell(X-1,Y,0), cell(X,Y,2), nonPlace(X-1,Y).
+cellAttColOneBack:- cell(X,Y-1,0), cell(X,Y,2), nonPlace(X,Y-1).
+cellAttDiagOneBack:- cell(X-1,Y-1,0), cell(X,Y,2), nonPlace(X-1,Y-1).
+cellAttInvDiagOneBack:- cell(X-1,Y+1,0), cell(X,Y,2), nonPlace(X-1,Y+1).
+
+
+
+%%tattica nuova 011010 010110
+	
+	%attacco
+cellAttRowStolen:- cell(X,Y,0), cell(X+1,Y,2), cell(X+2,Y,2), cell(X+3,Y,0), cell(X+4,Y,2),cell(X+5,Y,0), nonPlace(X+3,Y).
+cellAttColStolen:- cell(X,Y,0), cell(X,Y+1,2), cell(X,Y+2,2), cell(X,Y+3,0), cell(X,Y+4,2),cell(X,Y+5,0), nonPlace(X,Y+3).
+cellAttDiagStolen:- cell(X,Y,0), cell(X+1,Y+1,2), cell(X+2,Y+2,2), cell(X+3,Y+3,0), cell(X+4,Y+4,2),cell(X+5,Y+5,0), nonPlace(X+3,Y+3).
+cellAttInvDiagStolen:- cell(X,Y,0), cell(X+1,Y-1,2), cell(X+2,Y-2,2), cell(X+3,Y-3,0), cell(X+4,Y-4,2),cell(X+5,Y-5,0), nonPlace(X+3,Y-3).
+
+cellAttRowStolenBack:- cell(X,Y,0), cell(X+1,Y,2), cell(X+2,Y,0), cell(X+3,Y,2), cell(X+4,Y,2),cell(X+5,Y,0), nonPlace(X+2,Y).
+cellAttColFourStolenBack:- cell(X,Y,0), cell(X,Y+1,2), cell(X,Y+2,0), cell(X,Y+3,2), cell(X,Y+4,2),cell(X,Y+5,0), nonPlace(X,Y+2).
+cellAttDiagStolenBack:- cell(X,Y,0), cell(X+1,Y+1,2), cell(X+2,Y+2,0), cell(X+3,Y+3,2), cell(X+4,Y+4,2),cell(X+5,Y+5,0), nonPlace(X+2,Y+2).
+cellAttInvDiagStolenBack:- cell(X,Y,0), cell(X+1,Y-1,2), cell(X+2,Y-2,0), cell(X+3,Y-3,2), cell(X+4,Y-4,2),cell(X+5,Y-5,0), nonPlace(X+2,Y-2).
+
+	%difesa  
+cellRowStolen:- cell(X,Y,0), cell(X+1,Y,1), cell(X+2,Y,1), cell(X+3,Y,0), cell(X+4,Y,1),cell(X+5,Y,0), nonPlace(X+3,Y).
+cellColStolen:- cell(X,Y,0), cell(X,Y+1,1), cell(X,Y+2,1), cell(X,Y+3,0), cell(X,Y+4,1),cell(X,Y+5,0), nonPlace(X,Y+3).
+cellDiagStolen:- cell(X,Y,0), cell(X+1,Y+1,1), cell(X+2,Y+2,1), cell(X+3,Y+3,0), cell(X+4,Y+4,1),cell(X+5,Y+5,0), nonPlace(X+3,Y+3).
+cellInvDiagStolen:- cell(X,Y,0), cell(X+1,Y-1,1), cell(X+2,Y-2,1), cell(X+3,Y-3,0), cell(X+4,Y-4,1),cell(X+5,Y-5,0), nonPlace(X+3,Y-3).
+
+cellRowStolenBack:- cell(X,Y,0), cell(X+1,Y,1), cell(X+2,Y,0), cell(X+3,Y,1), cell(X+4,Y,1),cell(X+5,Y,0), nonPlace(X+2,Y).
+cellColFourStolenBack:- cell(X,Y,0), cell(X,Y+1,1), cell(X,Y+2,0), cell(X,Y+3,1), cell(X,Y+4,1),cell(X,Y+5,0), nonPlace(X,Y+2).
+cellDiagStolenBack:- cell(X,Y,0), cell(X+1,Y+1,1), cell(X+2,Y+2,0), cell(X+3,Y+3,1), cell(X+4,Y+4,1),cell(X+5,Y+5,0), nonPlace(X+2,Y+2).
+cellInvDiagStolenBack:- cell(X,Y,0), cell(X+1,Y-1,1), cell(X+2,Y-2,0), cell(X+3,Y-3,1), cell(X+4,Y-4,1),cell(X+5,Y-5,0), nonPlace(X+2,Y-2).
+
+	%difesa 11010 - 01011
+cellRowCross:- cell(X,Y,1), cell(X+1,Y,1), cell(X+2,Y,0), cell(X+3,Y,1), cell(X+4,Y,0), nonPlace(X+4,Y).
+cellColCross:- cell(X,Y,1), cell(X,Y+1,1), cell(X,Y+2,0), cell(X,Y+3,1), cell(X,Y+4,0), nonPlace(X,Y+4).
+cellDiagCross:- cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,0), cell(X+3,Y+3,1), cell(X+4,Y+4,0), nonPlace(X+4,Y+4).
+cellInvDiagCross:- cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,0), cell(X+3,Y-3,1), cell(X+4,Y-4,0), nonPlace(X+4,Y-4).
+
+cellRowCrossBack:- cell(X,Y,0), cell(X+1,Y,1), cell(X+2,Y,0), cell(X+3,Y,1), cell(X+4,Y,1), nonPlace(X,Y).
+cellColFourCrossBack:- cell(X,Y,0), cell(X,Y+1,1), cell(X,Y+2,0), cell(X,Y+3,1), cell(X,Y+4,1), nonPlace(X,Y).
+cellDiagCrossBack:- cell(X,Y,0), cell(X+1,Y+1,1), cell(X+2,Y+2,0), cell(X+3,Y+3,1), cell(X+4,Y+4,1), nonPlace(X,Y).
+cellInvDiagCrossBack:- cell(X,Y,0), cell(X+1,Y-1,1), cell(X+2,Y-2,0), cell(X+3,Y-3,1), cell(X+4,Y-4,1), nonPlace(X,Y).
+
+
+%attacco (4)
+:~rowFour. [1@18]
+:~colFour. [2@18]
+:~diagFour. [3@18]
+:~invDiagFour. [4@18]
+:~rowFourBack. [5@18]
+:~colFourBack. [6@18]
+:~diagFourBack. [7@18]
+:~invDiagFourBack. [8@18]			
+			
+
+%attacco (4 alternate 11011)
+:~cellAttRowFourAlter. [1@17]
+:~cellAttColFourAlter. [2@17]
+:~cellAttDiagFourAlter. [3@17]
+:~cellAttInvDiagFourAlter. [4@17]			
+
+%attacco (4 alternate)
+:~cellAttRowFourAlt. [1@16]
+:~cellAttColFourAlt. [2@16]
+:~cellAttDiagFourAlt. [3@16]
+:~cellAttInvDiagFourAlt. [4@16]
+:~cellAttRowFourBackAlt. [5@16]
+:~cellAttColFourBackAlt. [6@16]
+:~cellAttDiagFourBackAlt. [7@16]
+:~cellAttInvDiagFourBackAlt. [8@16]
+
+%difesa (4 alternate 11011)
+:~cellRowFourAlter. [1@15]
+:~cellColFourAlter. [2@15]
+:~cellDiagFourAlter. [3@15]
+:~cellInvDiagFourAlter. [4@15]			
+
+%difesa (4)
+:~cellRowFour. [1@14]
+:~cellColFour. [2@14]
+:~cellDiagFour. [3@14]
+:~cellInvDiagFour. [4@14]
+:~cellRowFourBack. [5@14]
+:~cellColFourBack. [6@14]
+:~cellDiagFourBack. [7@14]
+:~cellInvDiagFourBack. [8@14]
+			
+%difesa (4 alternate)
+:~cellRowFourAlt. [1@13]
+:~cellColFourAlt. [2@13]
+:~cellDiagFourAlt. [3@13]
+:~cellInvDiagFourAlt. [4@13]
+:~cellRowFourBackAlt. [5@13]
+:~cellColFourBackAlt. [6@13]
+:~cellDiagFourBackAlt. [7@13]
+:~cellInvDiagFourBackAlt. [8@13]
+
+
+
+%tatticarubata(011010)
+
+	%attacco
+:~cellAttRowStolen. [1@12]
+:~cellAttColStolen. [2@12]
+:~cellAttDiagStolen. [3@12]
+:~cellAttInvDiagStolen. [4@12]
+:~cellAttRowStolenBack. [5@12]
+:~cellAttColStolenBack. [6@12]
+:~cellAttDiagStolenBack. [7@12]
+:~cellAttInvDiagStolenBack. [8@12]
+
+
+
+	%difesa
+:~cellRowStolen. [1@11]
+:~cellColStolen. [2@11]
+:~cellDiagStolen. [3@11]
+:~cellInvDiagStolen. [4@11]
+:~cellRowStolenBack. [5@11]
+:~cellColStolenBack. [6@11]
+:~cellDiagStolenBack. [7@11]
+:~cellInvDiagStolenBack. [8@11]
+
+
+%attacco(3 aperti)
+:~cellAttRowThreeOpen. [1@10]
+:~cellAttColThreeOpen. [2@10]
+:~cellAttDiagThreeOpen. [3@10]
+:~cellAttInvDiagThreeOpen. [4@10]
+:~cellAttRowThreeBackOpen. [5@10]
+:~cellAttColThreeBackOpen. [6@10]
+:~cellAttDiagThreeBackOpen. [7@10]
+:~cellAttInvDiagThreeBackOpen. [8@10]
+
+%difesa(3 aperti)
+:~cellRowThreeOpen. [1@9]
+:~cellColThreeOpen. [2@9]
+:~cellDiagThreeOpen. [3@9]
+:~cellInvDiagThreeOpen. [4@9]
+:~cellRowThreeBackOpen. [5@9]
+:~cellColThreeBackOpen. [6@9]
+:~cellDiagThreeBackOpen. [7@9]
+:~cellInvDiagThreeBackOpen. [8@9]
+
+%attacco (3)
+:~cellAttRowThree. [1@3]
+:~cellAttColThree. [2@3]
+:~cellAttDiagThree. [3@3]
+:~cellAttInvDiagThree. [4@3]
+:~cellAttRowThreeBack. [5@3]
+:~cellAttColThreeBack. [6@3]
+:~cellAttDiagThreeBack. [7@3]
+:~cellAttInvDiagThreeBack. [8@3]
+
+%difesa 11010 - 01011
+:~cellRowCross. [1@7] 
+:~cellColCross. [2@7]
+:~cellDiagCross. [3@7]
+:~cellInvDiagCross. [4@7]
+:~cellRowCrossBack. [5@7]
+:~cellColCrossBack. [6@7]
+:~cellDiagCrossBack. [7@7]
+:~cellInvDiagCrossBack. [8@7]
+
+
+%attacco (2 aperti)
+:~cellAttRowTwoOpen. [1@6]
+:~cellAttColTwoOpen. [2@6]
+:~cellAttDiagTwoOpne. [3@6]
+:~cellAttInvDiagTwoOpen. [4@6]
+:~cellAttRowTwoBackOpen. [5@6]
+:~cellAttColTwoBackOpen. [6@6]
+:~cellAttDiagTwoBackOpen. [7@6]
+:~cellAttInvDiagTwoBackOpen.  [8@6]
+
+%difesa (2 aperti)
+:~cellRowTwoOpen. [1@5]
+:~cellColTwoOpen. [2@5]
+:~cellDiagTwoOpen. [3@5]
+:~cellInvDiagTwoOpen. [4@5]
+:~cellRowTwoBackOpen. [5@5]
+:~cellColTwoBackOpen. [6@5]
+:~cellDiagTwoBackOpen. [7@5]
+:~cellInvDiagTwoBackOpen. [8@5]
+
+%difesa palla-vuoto-palla
+:~cellRowAlt. [9@4]
+:~cellColAlt. [10@4]
+:~cellDiagAlt. [11@4]
+:~cellInvDiagAlt. [12@4]
+
+%attacco (2)
+:~cellAttRowTwo. [1@4]
+:~cellAttColTwo. [2@4]
+:~cellAttDiagTwo. [3@4]
+:~cellAttInvDiagTwo. [4@4]
+:~cellAttRowTwoBack. [5@4]
+:~cellAttColTwoBack. [6@4]
+:~cellAttDiagTwoBack. [7@4]
+:~cellAttInvDiagTwoBack.  [8@4]
+
+%attacco (1)
+:~cellAttRowOne. [1@2]
+:~cellAttColOne. [2@2]
+:~cellAttDiagOne. [3@2]
+:~cellAttInvDiagOne. [4@2]
+:~cellAttRowOneBack. [5@2]
+:~cellAttColOneBack. [6@2]
+:~cellAttDiagOneBack. [7@2]
+:~cellAttInvDiagOneBack.  [8@2]
+
+%difesa (3)
+:~cellRowThree. [1@8]
+:~cellColThree. [2@8]
+:~cellDiagThree. [3@8]
+:~cellInvDiagThree. [4@8]
+:~cellRowThreeBack. [5@8]
+:~cellColThreeBack. [6@8]
+:~cellDiagThreeBack. [7@8]
+:~cellInvDiagThreeBack. [8@8]
+
+
+
+%difesa (1)
+:~cellRowOne. [1@1]
+:~cellColOne. [2@1]
+:~cellDiagOne. [3@1]
+:~cellInvDiagOne. [4@1]
+:~cellRowOneBack. [5@1]
+:~cellColOneBack. [6@1]
+:~cellDiagOneBack. [7@1]
+:~cellInvDiagOneBack.  [8@1]
