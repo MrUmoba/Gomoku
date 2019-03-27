@@ -1,18 +1,14 @@
 row(0..14).
 column(0..14).
 
-cell(5,6,2).
-cell(6,6,2).
-
+cell(3,7,2).
+cell(5,7,2).
 cell(6,7,1).
-cell(8,7,1).
-cell(5,8,2).
-cell(6,8,2).
-cell(7,8,1).
-cell(6,9,1).
-cell(7,9,2).
-cell(7,10,1).
-cell(8,11,1).
+cell(4,8,1).
+cell(5,9,1).
+cell(6,10,1).
+cell(7,11,2).
+
 
 %cell(X,Y,Valore).
 % 0 = Vuoto, 1 = Giocatore, 2 = AI.
@@ -88,11 +84,17 @@ cellDiagTwoBackOpen:- cell(X-2,Y-2,0),cell(X-1,Y-1,0), cell(X,Y,1), cell(X+1,Y+1
 cellInvDiagTwoBackOpen:- cell(X-1,Y+2,0),cell(X-1,Y+1,0), cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,0),cell(X+3,Y-3,0), nonPlace(X-1,Y+1).
 
 
-%difesa (palla-vuoto-palla)
+%difesa (101)
 cellRowAlt :- cell(X,Y,1), cell(X+1,Y,0), cell(X+2,Y,1), nonPlace(X+1,Y).
 cellColAlt:- cell(X,Y,1), cell(X,Y+1,0), cell(X,Y+2,1), nonPlace(X,Y+1).
 cellDiagAlt:- cell(X,Y,1), cell(X+1,Y+1,0), cell(X+2,Y+2,1), nonPlace(X+1,Y+1).
 cellInvDiagAlt:- cell(X,Y,1), cell(X+1,Y-1,0), cell(X+2,Y-2,1), nonPlace(X+1,Y-1).
+
+%attacco (01010)
+cellAttRowAlt :- cell(X-1,Y,0), cell(X,Y,2), cell(X+1,Y,0), cell(X+2,Y,2),cell(X+3,Y,0), nonPlace(X+1,Y).
+cellAttColAlt:-cell(X,Y-1,0), cell(X,Y,2), cell(X,Y+1,0), cell(X,Y+2,2),cell(X,Y+3,0), nonPlace(X,Y+1).
+cellAttDiagAlt:-cell(X-1,Y-1,0), cell(X,Y,2), cell(X+1,Y+1,0), cell(X+2,Y+2,2), cell(X+3,Y+3,0), nonPlace(X+1,Y+1).
+cellAttInvDiagAlt:-cell(X-1,Y+1,0), cell(X,Y,2), cell(X+1,Y-1,0), cell(X+2,Y-2,2),cell(X+3,Y-3,0), nonPlace(X+1,Y-1).
 
 %difesa (1)
 cellRowOne:-  cell(X,Y,1), cell(X+1,Y,0), nonPlace(X+1,Y).
@@ -227,6 +229,17 @@ cellColFourCrossBack:- cell(X,Y,0), cell(X,Y+1,1), cell(X,Y+2,0), cell(X,Y+3,1),
 cellDiagCrossBack:- cell(X,Y,0), cell(X+1,Y+1,1), cell(X+2,Y+2,0), cell(X+3,Y+3,1), cell(X+4,Y+4,1), nonPlace(X,Y).
 cellInvDiagCrossBack:- cell(X,Y,0), cell(X+1,Y-1,1), cell(X+2,Y-2,0), cell(X+3,Y-3,1), cell(X+4,Y-4,1), nonPlace(X,Y).
 
+	%attacco 11010 - 01011
+cellAttRowCross:- cell(X,Y,2), cell(X+1,Y,2), cell(X+2,Y,0), cell(X+3,Y,2), cell(X+4,Y,0), nonPlace(X+4,Y).
+cellAttColCross:- cell(X,Y,2), cell(X,Y+1,2), cell(X,Y+2,0), cell(X,Y+3,2), cell(X,Y+4,0), nonPlace(X,Y+4).
+cellAttDiagCross:- cell(X,Y,2), cell(X+1,Y+1,2), cell(X+2,Y+2,0), cell(X+3,Y+3,2), cell(X+4,Y+4,0), nonPlace(X+4,Y+4).
+cellAttInvDiagCross:- cell(X,Y,2), cell(X+1,Y-1,2), cell(X+2,Y-2,0), cell(X+3,Y-3,2), cell(X+4,Y-4,0), nonPlace(X+4,Y-4).
+
+cellAttRowCrossBack:- cell(X,Y,0), cell(X+1,Y,2), cell(X+2,Y,0), cell(X+3,Y,2), cell(X+4,Y,2), nonPlace(X,Y).
+cellAttColFourCrossBack:- cell(X,Y,0), cell(X,Y+1,2), cell(X,Y+2,0), cell(X,Y+3,2), cell(X,Y+4,2), nonPlace(X,Y).
+cellAttDiagCrossBack:- cell(X,Y,0), cell(X+1,Y+1,2), cell(X+2,Y+2,0), cell(X+3,Y+3,2), cell(X+4,Y+4,2), nonPlace(X,Y).
+cellAttInvDiagCrossBack:- cell(X,Y,0), cell(X+1,Y-1,2), cell(X+2,Y-2,0), cell(X+3,Y-3,2), cell(X+4,Y-4,2), nonPlace(X,Y).
+
 
 %attacco (4)
 :~rowFour. [1@18]
@@ -329,25 +342,51 @@ cellInvDiagCrossBack:- cell(X,Y,0), cell(X+1,Y-1,1), cell(X+2,Y-2,0), cell(X+3,Y
 :~cellInvDiagThreeBackOpen. [8@9]
 
 %attacco (3)
-:~cellAttRowThree. [1@3]
-:~cellAttColThree. [2@3]
-:~cellAttDiagThree. [3@3]
-:~cellAttInvDiagThree. [4@3]
-:~cellAttRowThreeBack. [5@3]
-:~cellAttColThreeBack. [6@3]
-:~cellAttDiagThreeBack. [7@3]
-:~cellAttInvDiagThreeBack. [8@3]
+:~cellAttRowThree. [1@8]
+:~cellAttColThree. [2@8]
+:~cellAttDiagThree. [3@8]
+:~cellAttInvDiagThree. [4@8]
+:~cellAttRowThreeBack. [5@8]
+:~cellAttColThreeBack. [6@8]
+:~cellAttDiagThreeBack. [7@8]
+:~cellAttInvDiagThreeBack. [8@8]
 
 %difesa 11010 - 01011
-:~cellRowCross. [1@7] 
-:~cellColCross. [2@7]
-:~cellDiagCross. [3@7]
-:~cellInvDiagCross. [4@7]
-:~cellRowCrossBack. [5@7]
-:~cellColCrossBack. [6@7]
-:~cellDiagCrossBack. [7@7]
-:~cellInvDiagCrossBack. [8@7]
+:~cellRowCross. [9@8] 
+:~cellColCross. [10@8]
+:~cellDiagCross. [11@8]
+:~cellInvDiagCross. [12@8]
+:~cellRowCrossBack. [13@8]
+:~cellColCrossBack. [14@8]
+:~cellDiagCrossBack. [15@8]
+:~cellInvDiagCrossBack. [16@8]
 
+%difesa (3)
+:~cellRowThree. [1@7]
+:~cellColThree. [2@7]
+:~cellDiagThree. [3@7]
+:~cellInvDiagThree. [4@7]
+:~cellRowThreeBack. [5@7]
+:~cellColThreeBack. [6@7]
+:~cellDiagThreeBack. [7@7]
+:~cellInvDiagThreeBack. [8@7]
+
+
+%difesa 11010 - 01011
+:~cellRowCross. [9@7] 
+:~cellColCross. [10@7]
+:~cellDiagCross. [11@7]
+:~cellInvDiagCross. [12@7]
+:~cellRowCrossBack. [13@7]
+:~cellColCrossBack. [14@7]
+:~cellDiagCrossBack. [15@7]
+:~cellInvDiagCrossBack. [16@7]
+
+%attacco 01010
+:~cellAttRowAlt. [9@6]
+:~cellAttColAlt. [10@6]
+:~cellAttDiagAlt. [11@6]
+:~cellAttInvDiagAlt. [12@6]
 
 %attacco (2 aperti)
 :~cellAttRowTwoOpen. [1@6]
@@ -375,6 +414,8 @@ cellInvDiagCrossBack:- cell(X,Y,0), cell(X+1,Y-1,1), cell(X+2,Y-2,0), cell(X+3,Y
 :~cellDiagAlt. [11@4]
 :~cellInvDiagAlt. [12@4]
 
+
+
 %attacco (2)
 :~cellAttRowTwo. [1@4]
 :~cellAttColTwo. [2@4]
@@ -395,15 +436,6 @@ cellInvDiagCrossBack:- cell(X,Y,0), cell(X+1,Y-1,1), cell(X+2,Y-2,0), cell(X+3,Y
 :~cellAttDiagOneBack. [7@2]
 :~cellAttInvDiagOneBack.  [8@2]
 
-%difesa (3)
-:~cellRowThree. [1@8]
-:~cellColThree. [2@8]
-:~cellDiagThree. [3@8]
-:~cellInvDiagThree. [4@8]
-:~cellRowThreeBack. [5@8]
-:~cellColThreeBack. [6@8]
-:~cellDiagThreeBack. [7@8]
-:~cellInvDiagThreeBack. [8@8]
 
 
 

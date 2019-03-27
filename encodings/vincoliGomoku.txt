@@ -194,7 +194,7 @@ cellAttDiagStolen:- cell(X,Y,0), cell(X+1,Y+1,2), cell(X+2,Y+2,2), cell(X+3,Y+3,
 cellAttInvDiagStolen:- cell(X,Y,0), cell(X+1,Y-1,2), cell(X+2,Y-2,2), cell(X+3,Y-3,0), cell(X+4,Y-4,2),cell(X+5,Y-5,0), nonPlace(X+3,Y-3).
 
 cellAttRowStolenBack:- cell(X,Y,0), cell(X+1,Y,2), cell(X+2,Y,0), cell(X+3,Y,2), cell(X+4,Y,2),cell(X+5,Y,0), nonPlace(X+2,Y).
-cellAttColFourStolenBack:- cell(X,Y,0), cell(X,Y+1,2), cell(X,Y+2,0), cell(X,Y+3,2), cell(X,Y+4,2),cell(X,Y+5,0), nonPlace(X,Y+2).
+cellAttColStolenBack:- cell(X,Y,0), cell(X,Y+1,2), cell(X,Y+2,0), cell(X,Y+3,2), cell(X,Y+4,2),cell(X,Y+5,0), nonPlace(X,Y+2).
 cellAttDiagStolenBack:- cell(X,Y,0), cell(X+1,Y+1,2), cell(X+2,Y+2,0), cell(X+3,Y+3,2), cell(X+4,Y+4,2),cell(X+5,Y+5,0), nonPlace(X+2,Y+2).
 cellAttInvDiagStolenBack:- cell(X,Y,0), cell(X+1,Y-1,2), cell(X+2,Y-2,0), cell(X+3,Y-3,2), cell(X+4,Y-4,2),cell(X+5,Y-5,0), nonPlace(X+2,Y-2).
 
@@ -205,7 +205,7 @@ cellDiagStolen:- cell(X,Y,0), cell(X+1,Y+1,1), cell(X+2,Y+2,1), cell(X+3,Y+3,0),
 cellInvDiagStolen:- cell(X,Y,0), cell(X+1,Y-1,1), cell(X+2,Y-2,1), cell(X+3,Y-3,0), cell(X+4,Y-4,1),cell(X+5,Y-5,0), nonPlace(X+3,Y-3).
 
 cellRowStolenBack:- cell(X,Y,0), cell(X+1,Y,1), cell(X+2,Y,0), cell(X+3,Y,1), cell(X+4,Y,1),cell(X+5,Y,0), nonPlace(X+2,Y).
-cellColFourStolenBack:- cell(X,Y,0), cell(X,Y+1,1), cell(X,Y+2,0), cell(X,Y+3,1), cell(X,Y+4,1),cell(X,Y+5,0), nonPlace(X,Y+2).
+cellColStolenBack:- cell(X,Y,0), cell(X,Y+1,1), cell(X,Y+2,0), cell(X,Y+3,1), cell(X,Y+4,1),cell(X,Y+5,0), nonPlace(X,Y+2).
 cellDiagStolenBack:- cell(X,Y,0), cell(X+1,Y+1,1), cell(X+2,Y+2,0), cell(X+3,Y+3,1), cell(X+4,Y+4,1),cell(X+5,Y+5,0), nonPlace(X+2,Y+2).
 cellInvDiagStolenBack:- cell(X,Y,0), cell(X+1,Y-1,1), cell(X+2,Y-2,0), cell(X+3,Y-3,1), cell(X+4,Y-4,1),cell(X+5,Y-5,0), nonPlace(X+2,Y-2).
 
@@ -216,7 +216,7 @@ cellDiagCross:- cell(X,Y,1), cell(X+1,Y+1,1), cell(X+2,Y+2,0), cell(X+3,Y+3,1), 
 cellInvDiagCross:- cell(X,Y,1), cell(X+1,Y-1,1), cell(X+2,Y-2,0), cell(X+3,Y-3,1), cell(X+4,Y-4,0), nonPlace(X+4,Y-4).
 
 cellRowCrossBack:- cell(X,Y,0), cell(X+1,Y,1), cell(X+2,Y,0), cell(X+3,Y,1), cell(X+4,Y,1), nonPlace(X,Y).
-cellColFourCrossBack:- cell(X,Y,0), cell(X,Y+1,1), cell(X,Y+2,0), cell(X,Y+3,1), cell(X,Y+4,1), nonPlace(X,Y).
+cellColCrossBack:- cell(X,Y,0), cell(X,Y+1,1), cell(X,Y+2,0), cell(X,Y+3,1), cell(X,Y+4,1), nonPlace(X,Y).
 cellDiagCrossBack:- cell(X,Y,0), cell(X+1,Y+1,1), cell(X+2,Y+2,0), cell(X+3,Y+3,1), cell(X+4,Y+4,1), nonPlace(X,Y).
 cellInvDiagCrossBack:- cell(X,Y,0), cell(X+1,Y-1,1), cell(X+2,Y-2,0), cell(X+3,Y-3,1), cell(X+4,Y-4,1), nonPlace(X,Y).
 
@@ -227,7 +227,7 @@ cellAttDiagCross:- cell(X,Y,2), cell(X+1,Y+1,2), cell(X+2,Y+2,0), cell(X+3,Y+3,2
 cellAttInvDiagCross:- cell(X,Y,2), cell(X+1,Y-1,2), cell(X+2,Y-2,0), cell(X+3,Y-3,2), cell(X+4,Y-4,0), nonPlace(X+4,Y-4).
 
 cellAttRowCrossBack:- cell(X,Y,0), cell(X+1,Y,2), cell(X+2,Y,0), cell(X+3,Y,2), cell(X+4,Y,2), nonPlace(X,Y).
-cellAttColFourCrossBack:- cell(X,Y,0), cell(X,Y+1,2), cell(X,Y+2,0), cell(X,Y+3,2), cell(X,Y+4,2), nonPlace(X,Y).
+cellAttColCrossBack:- cell(X,Y,0), cell(X,Y+1,2), cell(X,Y+2,0), cell(X,Y+3,2), cell(X,Y+4,2), nonPlace(X,Y).
 cellAttDiagCrossBack:- cell(X,Y,0), cell(X+1,Y+1,2), cell(X+2,Y+2,0), cell(X+3,Y+3,2), cell(X+4,Y+4,2), nonPlace(X,Y).
 cellAttInvDiagCrossBack:- cell(X,Y,0), cell(X+1,Y-1,2), cell(X+2,Y-2,0), cell(X+3,Y-3,2), cell(X+4,Y-4,2), nonPlace(X,Y).
 
@@ -419,23 +419,23 @@ cellAttInvDiagCrossBack:- cell(X,Y,0), cell(X+1,Y-1,2), cell(X+2,Y-2,0), cell(X+
 
 %attacco (1)
 :~cellAttRowOne. [1@2]
-:~cellAttColOne. [2@2]
-:~cellAttDiagOne. [3@2]
-:~cellAttInvDiagOne. [4@2]
-:~cellAttRowOneBack. [5@2]
-:~cellAttColOneBack. [6@2]
-:~cellAttDiagOneBack. [7@2]
-:~cellAttInvDiagOneBack.  [8@2]
+:~cellAttColOne. [1@2]
+:~cellAttDiagOne. [1@2]
+:~cellAttInvDiagOne. [1@2]
+:~cellAttRowOneBack. [1@2]
+:~cellAttColOneBack. [1@2]
+:~cellAttDiagOneBack. [1@2]
+:~cellAttInvDiagOneBack.  [1@2]
 
 
 
 
 %difesa (1)
 :~cellRowOne. [1@1]
-:~cellColOne. [2@1]
-:~cellDiagOne. [3@1]
-:~cellInvDiagOne. [4@1]
-:~cellRowOneBack. [5@1]
-:~cellColOneBack. [6@1]
-:~cellDiagOneBack. [7@1]
-:~cellInvDiagOneBack.  [8@1]
+:~cellColOne. [1@1]
+:~cellDiagOne. [1@1]
+:~cellInvDiagOne. [1@1]
+:~cellRowOneBack. [1@1]
+:~cellColOneBack. [1@1]
+:~cellDiagOneBack. [1@1]
+:~cellInvDiagOneBack.  [1@1]
